@@ -1,0 +1,201 @@
+$grey-b: #2a2b30;
+$greyb-b: #54565f;
+$greft-b: #868893;
+$orange-b: #ffdd3c;
+$black-b: #1E1F22;
+
+.all {
+    width: 100%;
+    padding: 50px 0;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $black-b;
+    .profile1 {
+      width: 35%;
+      background-color: $grey-b;
+      border: 2px solid $greyb-b;
+      border-radius: 25px;
+      text-align: center;
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 25px;
+      
+      .p-image1{
+        display: flex;
+        justify-content: center;
+        background: url('https://png.pngtree.com/png-vector/20230113/ourmid/pngtree-golden-circle-frame-clipart-png-image_6561113.png') no-repeat center center/cover;
+        padding: 70px 0;
+        img {
+          position: relative; /* Ensure the image respects the stacking context of its parent */
+          width: 200px;
+          height: 200px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+      .p-image2{
+        display: flex;
+        justify-content: center;
+        background: url('https://png.pngtree.com/png-vector/20230113/ourmid/pngtree-golden-circle-frame-clipart-png-image_6561113.png') no-repeat center center/cover;
+        padding: 70px 0;
+        img {
+          position: relative; /* Ensure the image respects the stacking context of its parent */
+          width: 200px;
+          height: 200px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+      .p-image3{
+        display: flex;
+        justify-content: center;
+        background: url('https://png.pngtree.com/png-vector/20230131/ourmid/pngtree-purple-blue-neon-circle-png-image_6579210.png') no-repeat center center/cover;
+        padding: 70px 0;
+        img {
+          position: relative; /* Ensure the image respects the stacking context of its parent */
+          width: 200px;
+          height: 200px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+      .p-image4{
+        display: flex;
+        justify-content: center;
+        background: url('https://png.pngtree.com/png-vector/20230113/ourmid/pngtree-golden-circle-frame-clipart-png-image_6561113.png') no-repeat center center/cover;
+        padding: 70px 0;
+        img {
+          position: relative; /* Ensure the image respects the stacking context of its parent */
+          width: 200px;
+          height: 200px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+      .p-image5{
+        display: flex;
+        justify-content: center;
+        background: url('../../assets/koksultan.png') no-repeat center center/cover;
+        padding: 70px 0;
+        img {
+          position: relative; /* Ensure the image respects the stacking context of its parent */
+          width: 200px;
+          height: 200px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+      }
+      h2 {
+        font-size: clamp(0.9rem, 0.9rem + 1.2vw, 1.2rem);
+      }
+      p {
+        color: white;
+      }
+      a{
+        width: 100%;
+      }
+      button {
+        width: 100%;
+        padding: 20px 0;
+        border-radius: 10px;
+        border: none;
+        font-size: clamp(0.9rem, 0.9rem + 0.9vw, 1.2rem) !important;
+        background-color: black;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .editbtn{
+        background-color: $orange-b;
+        color: black;
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+    }
+    
+  .p-line{
+    width: 100%;
+    padding: 20px;
+    border: 2px solid $greyb-b;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    .p-act{
+      color: $orange-b;
+    }
+  }
+  .pl-top{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .pt-line{
+      width: 45%;
+      background-color: black;
+      color: white;
+      padding: 20px 0;
+      border-radius: 20px;
+      border: 2px solid $orange-b;
+      h1{
+        color: $orange-b;
+        font-size: clamp(0.9rem, 0.9rem + 1.2vw, 1.2rem) !important;  
+      }
+    }
+  }
+  .pler-line{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    .p-line{
+      width: 47%;
+    }
+    button{
+      width: 47%;
+      border-radius: 20px;
+      background-color: black !important;
+      color: white !important;
+      border: 2px solid $orange-b;
+    }
+  }
+
+  @media all and (max-width: 1400px) {
+    .profile1{
+      width: 55% !important;
+    }
+  }
+  @media all and (max-width: 1000px) {
+    .profile1{
+      width: 65% !important;
+      padding: 30px;
+    }
+  }
+  @media all and (max-width: 600px) {
+    .profile1{
+      width: 85% !important;
+      padding: 20px !important;
+    }
+    h2{
+      font-size: 1rem !important;
+    }
+  }
+  @media all and (max-width: 480px) {
+    .profile1{
+      img{
+        width: 150px !important;
+        height: 150px !important;
+      }
+    }
+    h1{
+      font-size: 1rem;
+    }
+  }

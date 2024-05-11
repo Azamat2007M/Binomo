@@ -1,0 +1,134 @@
+$grey-b: #2a2b30;
+$greyb-b: #54565f;
+$greft-b: #868893;
+$orange-b: #ffdd3c;
+$black-b: #1E1F22;
+
+.u-card{
+  width: 50%;
+  background-color: $grey-b;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid $greyb-b;
+  border-radius: 20px;
+  padding: 40px;
+  form{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+    h1{
+      color: white;
+      font-size: 3rem;
+    }
+    input{
+      width: 100% !important;
+      padding: 25px 50px;
+      border-radius: 20px;
+      font-size: 1.2rem;
+      background-color: $black-b;
+      border: 2px solid $greyb-b;
+      color: white;
+      outline: none;
+    }
+    .pass{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      input{
+        width: 100% !important;
+      }
+      .btnpass{
+        width: 20%;
+        border-radius: 20px;
+        font-size: 2rem;
+        padding: 40px 0;
+        font-weight: 700;
+        background-color: $orange-b;
+        cursor: pointer;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .a-img{
+          width: 60px;
+          height: 70px;
+          position: absolute;
+        }
+        .d-img{
+          width: 60px;
+          height: 50px;
+          position: absolute;
+        }
+      }
+    }
+    .btnlogin{
+      width: 100% !important;
+      padding: 25px 50px;
+      border-radius: 20px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      background-color: $orange-b;
+      cursor: pointer;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: black !important;
+    }
+  }
+}
+
+.a-down{
+  display: flex !important;
+  justify-content: space-between !important;
+  margin-top: 20px;
+  gap: 20px;
+  font-size: 1.2rem;
+  color: white;
+  a{
+    font-size: 1.2rem;
+    color: $orange-b;
+  }
+}
+
+@media all and (max-width: 1250px){
+  .u-card{
+    width: 60% !important;
+  }
+  .a-img{
+    width: 50px !important;
+    height: 60px !important;
+    position: absolute;
+  }
+  .d-img{
+    width: 50px !important;
+    height: 40px !important;
+    position: absolute;
+  }
+}
+@media all and (max-width: 900px){
+  .u-card{
+    width: 80% !important;
+  }
+}
+@media all and (max-width: 700px){
+  .btnpass{
+    width: 50% !important;
+  }
+  .a-img{
+    width: 40px !important;
+    height: 50px !important;
+    position: absolute;
+  }
+  .d-img{
+    width: 40px !important;
+    height: 30px !important;
+    position: absolute;
+  }
+}

@@ -1,0 +1,190 @@
+$grey-b: #2a2b30;
+$greyb-b: #54565f;
+$greft-b: #868893;
+$orange-b: #ffdd3c;
+$black-b: #1E1F22;
+
+.u-wrapper-f{
+    width: 100%;
+    padding: 50px;
+    background-color: $black-b;
+    .u-wrapper{
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .u-card{
+            width: 50%;
+            background-color: $grey-b;
+            border-radius: 20px;
+            border: 2px solid $greyb-b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 50px;
+            .u-line{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 80%;
+                background-color: transparent;
+                border: 2px solid $greyb-b;
+                border-radius: 20px;
+                padding: 20px;
+                margin: 30px;
+                h3{
+                    font-size: clamp(0.5rem, 0.7rem + 0.9vw, 1.2rem) !important;
+                    color: $orange-b;
+                }
+            }
+            .b-follow{
+                width: 80%;
+                background-color: $orange-b;
+                color: black;
+                border-radius: 20px;
+                border: none;
+                padding: 20px 0;
+                font-size: 1.7rem;
+                font-weight: 600;
+                cursor: pointer;
+                margin-top: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .b-followed{
+                width: 80%;
+                background-color: $black-b;
+                color: white;
+                font-size: 1.4rem;
+                padding: 25px 0;
+                border: 2px solid $greyb-b;
+                border-radius: 20px;
+                font-weight: 700;
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}
+
+.p-image1{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    background: url('https://png.pngtree.com/png-vector/20230113/ourmid/pngtree-golden-circle-frame-clipart-png-image_6561113.png') no-repeat center center/cover;
+    padding: 100px 0;
+    img {
+      position: relative; /* Ensure the image respects the stacking context of its parent */
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+  .p-image2{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    background: url('https://png.pngtree.com/png-vector/20230113/ourmid/pngtree-golden-circle-frame-clipart-png-image_6561113.png') no-repeat center center/cover;
+    padding: 70px 0;
+    img {
+      position: relative; /* Ensure the image respects the stacking context of its parent */
+      width: 55%;
+      height: 65%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+  .p-image3{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    background: url('https://png.pngtree.com/png-vector/20230131/ourmid/pngtree-purple-blue-neon-circle-png-image_6579210.png') no-repeat center center/cover;
+    padding: 70px 0;
+    img {
+      position: relative; /* Ensure the image respects the stacking context of its parent */
+      width: 55%;
+      height: 300px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+  .p-image4{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    background: url('https://png.pngtree.com/png-vector/20230113/ourmid/pngtree-golden-circle-frame-clipart-png-image_6561113.png') no-repeat center center/cover;
+    padding: 70px 0;
+    img {
+      position: relative; /* Ensure the image respects the stacking context of its parent */
+      width: 65%;
+      height: 65%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+  .p-image5{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    background: url('../../assets/koksultan.png') no-repeat center center/cover;
+    padding: 70px 0;
+    img {
+      position: relative; /* Ensure the image respects the stacking context of its parent */
+      width: 65%;
+      height: 65%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+
+
+@media all and (max-width: 1400px) {
+    .u-card{
+      width: 55% !important;
+    }
+  }
+  @media all and (max-width: 1000px) {
+    .u-card{
+      width: 65% !important;
+      padding: 30px;
+    }
+  }
+  @media all and (max-width: 900px) {
+    .u-card{
+      width: 85% !important;
+      padding: 20px !important;
+    }
+    .u-wrapper-f{
+      h2{
+        font-size: 1rem !important;
+      }
+    }
+  }
+  @media all and (max-width: 600px) {
+    .u-wrapper-f{
+      h2{
+        font-size: 1rem !important;
+      }
+    }
+    .u-card{
+      width: 100% !important;
+      padding: 20px !important;
+    }
+
+  }
+  @media all and (max-width: 480px) {
+    .u-wrapper-f{
+      img{
+        width: 200px;
+        height: 200px;
+    }
+    h1{
+      font-size: 1rem;
+    }
+    }
+  }
