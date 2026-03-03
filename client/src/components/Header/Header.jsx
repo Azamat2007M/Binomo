@@ -1,7 +1,4 @@
-import React from 'react'
 import Slider from "react-slick";
-import { IoIosArrowBack } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
 import './header.scss'
 import { Link } from 'react-router-dom';
 
@@ -41,7 +38,7 @@ const Header = () => {
                             <h1>FE Awards</h1>
                         </div>
                         <div className="h-line">
-                            <img src="https://binomo.com/h-assets/shared/assets/images/home/icons/comm-5b6dbcf85478b690.svg" alt="" />
+                            <img src="/header_3.svg" alt="" />
                             <h1>Financial <br /> Commission <br /> <span>Category A</span></h1>
                         </div>
                         <div className="h-line">
