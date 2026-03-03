@@ -3,6 +3,15 @@ Hello everyone! This was my first project when I started learning frontend devel
 # Install
 `npm install / npm i`
 
-## Start
-# Client
+# Start
+## Client
+`cd client`
+`npm run dev`
+
+## Server
+`cd client`
+`npm run dev`
+
+## Transactions
+`cd client`
 `npm run dev`
