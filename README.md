@@ -3,5 +3,6 @@ Hello everyone! This was my first project when I started learning frontend devel
 # Install
 `npm install / npm i`
 
-# Start
+## Start
+# Client
 `npm run dev`
