@@ -71,8 +71,6 @@ setInterval(async () => {
             console.log(error, "User wallet didn't change");
           }
         }
-
-        console.log("Trade closed:", trade._id);
       }
     }
   } catch (error) {
