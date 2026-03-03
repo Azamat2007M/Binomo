@@ -1,0 +1,27 @@
+$grey-b: #2a2b30;
+$greyb-b: #54565f;
+$greft-b: #868893;
+$orange-b: #ffdd3c;
+$black-b: #1E1F22;
+
+.choicer-panel{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 50px 0;
+    button{
+        width: 50%;
+        border: none;
+        color: white;
+        padding: 20px 0;
+        font-size: 1.2rem;
+        background-color: transparent;
+        border-bottom: 2px solid $greft-b;
+        cursor: pointer;
+
+    }
+    .b-active{
+        border-bottom: 2px solid $orange-b;
+    }
+}

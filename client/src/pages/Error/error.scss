@@ -1,0 +1,52 @@
+$grey-b: #2a2b30;
+$greyb-b: #54565f;
+$greft-b: #868893;
+$orange-b: #ffdd3c;
+
+.e-wrapper{
+    width: 100%;
+    margin: 100px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .e-card{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+        h1{
+            font-size: 10rem;
+            font-weight: 900;
+            font-family: "Akaya Kanadaka", system-ui;
+            background-image: url('https://4kwallpapers.com/images/walls/thumbs_2t/14974.jpg');
+            background-size: 100% 100%;
+            color: transparent;
+            -webkit-background-clip: text;
+        }
+        b{
+            font-size: 1.2rem;
+            font-weight: 900;
+            margin: 10px 0;
+        }
+        p{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        button{
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            background-color: $orange-b;
+            
+            a{
+                color: black !important;
+            }
+        }
+    }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Alkatra:wght@400..700&family=Chau+Philomene+One:ital@0;1&family=Mooli&display=swap')
