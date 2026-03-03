@@ -9,9 +9,9 @@ Hello everyone! This was my first project when I started learning frontend devel
 `npm run dev`
 
 ## Server
-`cd client`
-`npm run dev`
+`cd server`
+`npm start`
 
 ## Transactions
-`cd client`
-`npm run dev`
+`cd transactions`
+`npm start`
