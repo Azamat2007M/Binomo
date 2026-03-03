@@ -3,6 +3,9 @@ import axios from "axios";
 import { FaArrowUp } from "react-icons/fa6";
 import { FaArrowDown } from "react-icons/fa6";
 import "../../pages/Product/product.scss";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const ProductButton = ({userId, coin, amount, tradePosition, onTradeCreated, duration}) => {
   const [loading, setLoading] = useState(false);
@@ -12,6 +15,13 @@ const ProductButton = ({userId, coin, amount, tradePosition, onTradeCreated, dur
     try {
       const getTrans = await axios.get("http://localhost:1000/transactions")
       if (getTrans.data.find((el) => el.status == "open")) {
+        toast.warning("У вас оже открыто сделка!", {
+          autoClose: 3000,
+          style: {
+            background: "red",
+            color: "white",
+          },
+        });
         return false
       }
       
@@ -24,13 +34,21 @@ const ProductButton = ({userId, coin, amount, tradePosition, onTradeCreated, dur
       });
 
       const trade = response.data;
+      toast.success(`✅ ${tradePosition.toUpperCase()} успешно выполнен!`, {
+        autoClose: 3000,
+        style: {
+          background: "#1e7e34",
+          color: "white",
+        },
+      });
 
-      console.log("Trade created:", trade);
-
-      if (onTradeCreated) onTradeCreated(trade);
+      if (onTradeCreated) onTradeCreated(trade)
 
     } catch (err) {
       console.error("Error creating trade:", err);
+      toast.error("❌ Ошибка при выполнении сделки!", {
+        autoClose: 3000,
+      });
     } finally {
       setLoading(false);
     }
@@ -57,6 +75,7 @@ const ProductButton = ({userId, coin, amount, tradePosition, onTradeCreated, dur
         </> : <FaArrowDown />}
       </button>
       }
+      <ToastContainer position="top-right" />
     </>
   )
 }

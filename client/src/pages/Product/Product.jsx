@@ -6,6 +6,8 @@ import Skeleton from "react-loading-skeleton";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
 import "react-loading-skeleton/dist/skeleton.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./product.scss";
 import { BiCommentDetail } from "react-icons/bi";
 import { IoMegaphone } from "react-icons/io5";
@@ -20,6 +22,7 @@ import { BsXLg } from "react-icons/bs";
 import { GoPlus } from "react-icons/go";
 import { LuMinus } from "react-icons/lu";
 import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
 import { Rate } from "antd";
 import { useGetByIdQuery } from "../../redux/features/users";
 import emptyImg from '../../assets/b-empty.png'
@@ -155,7 +158,7 @@ const CryptoDetail = () => {
         }
       });
     } catch (err) {
-      alert(err);
+      console.error(err);
     }
   };
 
@@ -169,6 +172,12 @@ const CryptoDetail = () => {
         clearInterval(interval);
         setActiveTimers((prev) => ({ ...prev, [id]: 0 }));
         setIsTActive(false)
+        toast.success("The deal was successfully completed.", {
+          style: {
+            background: "#1e7e34",
+            color: "white",
+          },
+        });
       } else {
         setActiveTimers((prev) => ({ ...prev, [id]: diff }));
         setIsTActive(true)
@@ -369,11 +378,14 @@ const CryptoDetail = () => {
                         <div
                           className="mc-line"
                           key={el._id}
-                          onClick={() => navigate(`/coin/${el.symbol}`)}
+                          onClick={() => {
+                            navigate(`/coin/${el.symbol.toUpperCase()}USDT`)
+                            window.location.reload()
+                          }}
                         >
                           <img src={el.image} alt={el.name} />
                           <h2>{el.name}</h2>
-                          <b>{el.price}$</b>
+                          <h2>{el.price}$</h2>
                         </div>
                       ))
                     )}
@@ -524,7 +536,7 @@ const CryptoDetail = () => {
           <div className="ct-trade">
             <ProductButton
               userId={user._id}
-              coin="BTCUSDT"
+              coin={symbol}
               amount={countTrade}
               tradePosition="Buy"
               duration={timer}
@@ -532,7 +544,7 @@ const CryptoDetail = () => {
             />
             <ProductButton
               userId={user._id}
-              coin="BTCUSDT"
+              coin={symbol}
               amount={countTrade}
               tradePosition="Sell"
               duration={timer}
@@ -541,6 +553,7 @@ const CryptoDetail = () => {
           </div>
         </div>
       </div>
+      <ToastContainer position="top-right" />
       <Footer />
     </>
   );
