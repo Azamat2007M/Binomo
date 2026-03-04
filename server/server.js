@@ -15,7 +15,7 @@ app.use('/binomers', binomersRouter)
 app.use('/coins', coinsRouter)
 mongoose.set('strictQuery', true);
 
-const PORT = process.env.PORT || 7000;
+const PORT = process.env.PORT || 8000;
 
 const startServer = async () => {
   try {

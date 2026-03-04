@@ -1,116 +1,173 @@
-$grey-b: #2a2b30;
-$greyb-b: #54565f;
-$greft-b: #868893;
-$orange-b: #ffdd3c;
-$black-b: #1E1F22;
+$black-dark: #1E1F22;
+$grey-dark: #2a2b30;
+$grey-medium: #54565f;
+$grey-light: #868893;
+$orange-accent: #ffdd3c;
 
-.t-wrapper{
+.t-wrapper {
+  width: 100%;
+  height: max-content;
+  padding: 100px 0;
+  background-color: $black-dark;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.t-card {
+  width: 80%;
+  padding: 40px;
+  background-color: $grey-dark;
+  border: 2px solid $grey-medium;
+  border-radius: 20px;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  .t-active {
+    color: $orange-accent;
+    font-size: clamp(1.2rem, 1.4rem + 0.9vw, 1.8rem) !important;
+  }
+
+  .a-coin {
+    color: $orange-accent;
+  }
+
+  section {
     width: 100%;
-    height: max-content;
+  }
+}
+
+.t-title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: $orange-accent;
+  color: black;
+  align-items: center;
+  border: 2px solid $orange-accent;
+  border-radius: 15px;
+  padding: 10px 20px;
+  gap: 20px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+ 
+  h2{
+    color: $orange-accent;
+    font-size: clamp(1rem, 1.2rem + 0.5vw, 1.5rem) !important;
+  }
+}
+
+.t-liner {
+  width: 100%;
+  margin: 20px 0;
+  padding: 20px 40px;
+  background-color: black;
+  border-radius: 20px;
+  
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+
+  img {
+    width: 3%;
+    height: 5%;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  b {
+    font-size: 1.2rem !important;
+    padding: 0;
+    margin: 0;
+    line-height: 1.2;
+    height: fit-content;
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: $black-b;
-    flex-direction: column;
-    padding: 100px 0;
-    .t-card{
-        width: 80%;
-        background-color: $grey-b;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        border: 2px solid $greyb-b;
-        border-radius: 20px;
-        padding: 40px;
-        gap: 20px;
-        
-        .a-coin{
-            color: $orange-b;
-        }
-        .t-active{
-            color: $orange-b;
-            font-size: clamp(1.2rem, 1.4rem + 0.9vw, 1.8rem) !important;
-        }
-        section{
-            width: 100%;
-        }
-        .t-liner{
-            width: 100%;
-            background-color: black;
-            margin: 20px 0;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 20px;
-            padding: 20px 40px;
-            position: relative;
-            .t-status{
-                position: absolute;
-                width: 20px;
-                height: 20px;
-                background-color: lime;
-                border-radius: 50%;
-                top: -5px;
-                left: -5px;
-                -webkit-border-radius: 50%;
-                -moz-border-radius: 50%;
-                -ms-border-radius: 50%;
-                -o-border-radius: 50%;
-                .ts-circle{
-                    width: 20px;
-                    height: 20px;
-                    background-color: lime;
-                    filter: blur(1rem);
-                    -webkit-filter: blur(1rem);
-                }
-            }
-            img{
-                width: 3%;
-                height: 5%;
-                border-radius: 50%;
-            }
-            b{
-                font-size: 1.2rem !important;
-                padding: 0;
-            }
-        }
+  }
+
+  .t-status {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 20px;
+    height: 20px;
+    background-color: lime;
+    border-radius: 50%;
+
+    .ts-circle {
+      width: 20px;
+      height: 20px;
+      background-color: lime;
+      filter: blur(1rem);
+      border-radius: 50%;
     }
-}
-.transaction-wrapper{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    height: max-content;
-    .transaction-card{
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        display: flex;
-        justify-content: space-between;
-        border-radius: 15px;
-        border: 2px solid $orange-b;
-        -webkit-border-radius: 15px;
-        -moz-border-radius: 15px;
-        -ms-border-radius: 15px;
-        -o-border-radius: 15px;
-        position: relative;
-        .b-tradep{
-            position: absolute !important;
-            left: 47%;
-        }
-}
-}
-.b-empty{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid $greyb-b;
+  }
+
+  .trade-timer {
+    position: absolute;
+    top: -15px;
+    right: -10px;
+    padding: 5px 10px;
+    background-color: black;
+    border: 2px solid $orange-accent;
     border-radius: 20px;
-    img{
-        width: 50%;
-        filter: grayscale(100%);
+    width: max-content;
+    height: max-content;
+
+    b {
+      font-size: 1rem !important;
     }
+  }
+}
+
+.b-empty {
+  width: 100%;
+  padding: 40px;
+  border: 2px solid $grey-medium;
+  border-radius: 20px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 50%;
+    filter: grayscale(100%);
+  }
+}
+
+.transaction-wrapper {
+  width: 100%;
+  height: max-content;
+  
+  display: flex;
+  justify-content: center;
+
+  .transaction-card {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid $orange-accent;
+    border-radius: 15px;
+    
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+
+    .b-tradep {
+      position: absolute !important;
+      left: 47%;
+    }
+  }
 }

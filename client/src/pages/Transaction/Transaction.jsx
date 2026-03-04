@@ -1,28 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './transaction.scss'
 import axios from 'axios'
 import { jwtDecode } from 'jwt-decode'
 import Nav from '../../components/Nav/Nav'
 import Footer from '../../components/Footer/Footer'
 import imgUrl from '../../assets/b-empty.png'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const Transaction = () => {
     const [infoTrans, setInfoTrans] = useState([])
     const [productInfo, setProductInfo] = useState([])
     const [cryptoDataAll, setCryptoDataAll] = useState([]);
+    const [activeTimers, setActiveTimers] = useState({});
+    const [isTActive, setIsTActive] = useState(false)
     const decoded = localStorage.getItem("Access")
     ? jwtDecode(localStorage.getItem("Access"))
     : {};
-    const getTransaction = async () => {
-        await axios
-            .get('http://localhost:1000/transactions')
-            .then((res) => {
-                setInfoTrans(res.data);                
-            })
-            .catch((err) => {
-                alert(err);
-            })
-    }
     
     const getProductsInfo = async () => {
         try {
@@ -32,7 +27,46 @@ const Transaction = () => {
             alert(error);
         }
     };
-    console.log(cryptoDataAll);
+    
+    const getTransaction = async () => {
+        try {
+            const res = await axios.get('http://localhost:1000/transactions');
+            setInfoTrans(res.data);
+            console.log(infoTrans);
+            
+            res.data.forEach((transaction) => {
+                if (transaction.status === "open") {
+                    startTransactionTimer(transaction._id, transaction.endTime);
+                }
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const startTransactionTimer = (id, endTime) => {
+        const interval = setInterval(() => {
+        const now = new Date();
+        const end = new Date(endTime);
+        const diff = Math.floor((end - now) / 1000);
+
+        if (diff <= 0) {
+            clearInterval(interval);
+            setActiveTimers((prev) => ({ ...prev, [id]: 0 }));
+            setIsTActive(false)
+            toast.success("The deal was successfully completed.", {
+                style: {
+                    background: "#1e7e34",
+                    color: "white",
+                },
+            });
+            getTransaction();
+        } else {
+            setActiveTimers((prev) => ({ ...prev, [id]: diff }));
+            setIsTActive(true)
+        }
+        }, 1000);
+    };
     
 
     useEffect(() => {
@@ -50,36 +84,60 @@ const Transaction = () => {
             }
         };
         fetchData()
+        
+        const interval = setInterval(fetchData, 5000);
+        
+        return () => clearInterval(interval);
     }, [])
   return (
     <>
-        <Nav/>  
+        <Nav/>
         <div className="t-wrapper">
             <div className="t-card">
                 <h1 className='t-active'>Transaction</h1>
+                <div className="t-title">
+                    <b>Picture</b>
+                    <b>Coin</b>
+                    <b>Start Time</b>
+                    <b>Start Price</b>
+                    <b>Current Price</b>
+                    <b>Profit</b>
+                    <b>Position</b>
+                    <b>Amount</b>
+                </div>
                 {infoTrans.filter((el) => el?.userId === decoded?.userId).length > 0 ? (
                     <section>
                         {infoTrans.filter((el) => el?.userId === decoded?.userId).reverse().map((el) => {
                             const cryptoFind = cryptoDataAll.find((coin) => coin.symbol == el?.coin)
-                            let percentChange;
-                            let profit;
-                            if (el?.tradePosition === "Buy") {
-                                percentChange = (cryptoFind?.price - el?.startPrice) / el?.startPrice
+                            let profitValue = 0;
+                            
+                            if (cryptoFind && el?.status === "open") {
+                                let percentChange = 0;
+                                if (el?.tradePosition === "Buy") {
+                                    percentChange = (Number(cryptoFind?.price) - Number(el?.startPrice)) / Number(el?.startPrice);
+                                } else if (el?.tradePosition === "Sell") {
+                                    percentChange = (Number(el?.startPrice) - Number(cryptoFind?.price)) / Number(el?.startPrice);
+                                }   
+                                profitValue = Number(el?.amount) * percentChange * 100;
                             } else {
-                                percentChange = (el?.startPrice - cryptoFind?.price) / el?.startPrice
-                            } 
-                            profit = el?.amount * percentChange * 100
+                                profitValue = el?.profit ? Number(el?.profit) : 0;
+                            }
                             return(
                                 <div className="t-liner">
-                                    <div className='t-status' style={(el?.status == 'open') ? {display: "block"} : {display: "none"}}><div className='ts-circle'></div></div>
+                                    <div className='t-status' style={(el?.status == 'open' && isTActive) ? {display: "block"} : {display: "none"}}><div className='ts-circle'></div></div>
                                     <img src={productInfo.filter((element) => element?.symbol + 'usdt' === el?.coin.toLowerCase()).map((element) => element?.image)} alt="" />
                                     <b className='a-coin'>{el?.coin}</b>
                                     <b>{new Date(el?.startTime).getHours()}:{new Date(el?.startTime).getMinutes() < 10 ? "0"+new Date(el?.startTime).getMinutes() : new Date(el?.startTime).getMinutes()}</b>
                                     <b className='a-coin'>{Number(el?.startPrice).toFixed(2)}$</b>
-                                    <b style={{color: el?.startPrice > el?.endPrice || el?.startPrice >= cryptoFind?.price ? 'red' : 'lime'}}>{el?.endPrice ? Number(el?.endPrice) : Number(cryptoFind?.price).toFixed(2)}$</b>
-                                    <b style={{color: String(el?.profit)[0] == '-' || String(profit)[0] == '-' ? 'red' : 'lime'}}>{el?.profit ? Number(el?.profit).toFixed(2) : Number(profit).toFixed(2)}$</b>
+                                    <b style={{color: el?.tradePosition === "Buy" ? (el?.endPrice ? Number(el?.endPrice) : Number(cryptoFind?.price)) > el?.startPrice ? 'lime' : 'red' : (el?.endPrice ? Number(el?.endPrice) : Number(cryptoFind?.price)) > el?.startPrice ? 'lime' : 'red'}}>{el?.endPrice ? Number(el?.endPrice) : Number(cryptoFind?.price).toFixed(2)}$</b>
+                                    <b style={{color: profitValue < 0 ? 'red' : 'lime'}}>{profitValue.toFixed(2)}$</b>
                                     <b style={{color: el?.tradePosition == "Sell" ? 'red' : 'lime'}}>{el?.tradePosition}</b>
                                     <b style={{color: 'yellow'}}>{Number(el?.amount).toFixed(2)}$</b>
+                                    <div className="trade-timer" style={(el?.status == 'open' && isTActive) ? {display: "block"} : {display: "none"}}>
+                                        {el.status === "open" && isTActive && (
+                                            <b>{activeTimers[el._id] || 0}s</b>
+                                        )}
+                                    </div>
                                 </div>
                             )
                         })}
@@ -91,6 +149,7 @@ const Transaction = () => {
                 )}
             </div>
         </div>
+        <ToastContainer position="top-right" />
         <Footer/>
     </>
   )
