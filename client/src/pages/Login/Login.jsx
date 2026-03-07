@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Nav from '../../components/Nav/Nav';
@@ -31,7 +31,7 @@ const Login = () => {
     } catch (error) {
       setStatus({
         status: 400,
-        title: error.response.data
+        title: error.response?.data?.message || "Login failed"
       });      
       console.log(error);
     }

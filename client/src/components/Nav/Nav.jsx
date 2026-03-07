@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HiMenuAlt1 } from "react-icons/hi";
 import { IoEnterOutline } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import { FaInstagram } from "react-icons/fa";
 import { FaTelegramPlane } from "react-icons/fa";
-import { IoIosArrowDown } from "react-icons/io";
-import { IoIosArrowUp } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import "./nav.scss";
 import { Link, useNavigate } from "react-router-dom";
 import Drawer from "react-modern-drawer";
@@ -13,44 +12,34 @@ import "react-modern-drawer/dist/index.css";
 import { Toaster } from "react-hot-toast";
 import { RxAvatar } from "react-icons/rx";
 import { jwtDecode } from "jwt-decode";
-import { useEffect } from "react";
 import { useGetByIdQuery } from "../../redux/features/users";
 import Error from "../../pages/Error/Error";
 
 const Nav = () => {
-  const [pass, setPass] = useState(false);
-  const [pass2, setPass2] = useState(false);
+  const [sections, setSections] = useState({
+    forTraders: false,
+    information: false,
+  });
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const decoded = localStorage.getItem("Access") ? jwtDecode(localStorage.getItem("Access")) : {};  
-  const {data: user, isLoading, error} = useGetByIdQuery(decoded?.userId, {
-    skip: !decoded?.userId
+  const decoded = localStorage.getItem("Access")
+    ? jwtDecode(localStorage.getItem("Access"))
+    : {};
+  const { data: user, isLoading, error } = useGetByIdQuery(decoded?.userId, {
+    skip: !decoded?.userId,
   });
 
-  const dropDownToggle = () => {
-    if (!pass) {
-      setPass(true);
-    } else {
-      setPass(false);
-    }
-  };
-  const dropDownToggle2 = () => {
-    if (!pass2) {
-      setPass2(true);
-    } else {
-      setPass2(false);
-    }
-  };
-  const toggleDrawer = () => {
-    setIsOpen((prevState) => !prevState);
+  const toggleSection = (name) => {
+    setSections((prev) => ({ ...prev, [name]: !prev[name] }));
   };
 
+  const toggleDrawer = () => setIsOpen((prev) => !prev);
+  const closeDrawer = () => setIsOpen(false);
+
   useEffect(() => {
-    if (user !== null) {
-      if (user?.useractived === false) {
-        navigate("/ban");
-      } 
-    }  
+    if (user !== null && user?.useractived === false) {
+      navigate("/ban");
+    }
   }, [user, navigate]);
 
   if (isLoading) return <p>Loading...</p>;
@@ -70,36 +59,42 @@ const Nav = () => {
               {!isOpen ? (
                 <HiMenuAlt1 onClick={toggleDrawer} className="burger" />
               ) : (
-                <IoClose className="exit" onClick={() => setIsOpen(false)} />
+                <IoClose className="exit" onClick={closeDrawer} />
               )}
               <Drawer
                 open={isOpen}
                 direction="left"
                 className="n-menu"
-                onClose={toggleDrawer}
-                overlayColor="no"
-                size={'30%'}
+                onClose={closeDrawer}
+                enableOverlay={false}
+                size="30%"
               >
                 <div className="n-line">
                   <h1>VIP</h1>
                 </div>
                 <div className="n-line">
-                  <div className="active-top" onClick={dropDownToggle}>
+                  <div
+                    className="active-top"
+                    onClick={() => toggleSection("forTraders")}
+                  >
                     <h1>For traders</h1>
-                    {!pass ? <IoIosArrowDown /> : <IoIosArrowUp />}
+                    {!sections.forTraders ? <IoIosArrowDown /> : <IoIosArrowUp />}
                   </div>
-                  <div className={pass ? "active" : "default"}>
+                  <div className={sections.forTraders ? "active" : "default"}>
                     <h1>Tournaments</h1>
                     <h1>Promotions</h1>
                     <h1>Strategies</h1>
                   </div>
                 </div>
                 <div className="n-line">
-                  <div className="active-top" onClick={dropDownToggle2}>
+                  <div
+                    className="active-top"
+                    onClick={() => toggleSection("information")}
+                  >
                     <h1>Information</h1>
-                    {!pass2 ? <IoIosArrowDown /> : <IoIosArrowUp />}
+                    {!sections.information ? <IoIosArrowDown /> : <IoIosArrowUp />}
                   </div>
-                  <div className={pass2 ? "active" : "default"}>
+                  <div className={sections.information ? "active" : "default"}>
                     <h1>Statuses</h1>
                     <h1>About US</h1>
                     <h1>Regulations</h1>
@@ -111,7 +106,9 @@ const Nav = () => {
                   <h1>Help Center</h1>
                 </div>
                 <div className="n-line">
-                  <Link to={"/binomers"}><h1>Binomers</h1></Link>
+                  <Link to={"/binomers"}>
+                    <h1>Binomers</h1>
+                  </Link>
                 </div>
                 <a href="https://t.me/binomoplatform">
                   <button className="b-telegram">
@@ -125,7 +122,7 @@ const Nav = () => {
                 </a>
               </Drawer>
               <Link to={"/"} className="b-logo">
-                  <img src="https://play-lh.googleusercontent.com/_XUdhIjKwhAv1F7n2SBDvSHcEfT3Rh4wpHquYYMi_uuJu-tn7B4yV7uuh0tdBrP3dC5Y" alt=""/>
+                  <img src="/Logo3.png" alt=""/>
                   <h1 className="bi-logo">binomo</h1>
               </Link>
             </div>

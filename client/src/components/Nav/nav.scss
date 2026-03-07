@@ -24,20 +24,10 @@ nav{
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 99;
+    z-index: 100;
     .r-toast{
         background-color: red;
         color: white;
-    }
-    .t-timer{
-        width: 300px;
-        display: flex;
-        justify-content: space-between;
-        padding: 5px 10px;
-        background-color: $black-b;
-        border-radius: 10px;
-        border: 2px solid $orange-b;
-        font-size: 1.5rem;
     }
         
     .navbar{
@@ -56,12 +46,13 @@ nav{
             
             .n-menu{
                 position: absolute;
-                z-index: 0;
-                top: 100px;
-                margin-top: 101px;
+                z-index: 50;
+                top: 96px !important;
                 background-color: $grey-b;
                 border-right: 2px solid $greyb-b;
-                overflow-x: scroll;
+                width: 30%;
+                height: calc(100vh - 100px);
+                overflow-y: auto;
                 &::-webkit-scrollbar {
                     display: none;
                 }
@@ -76,14 +67,14 @@ nav{
                 border-bottom: 2px solid $greyb-b;
                 .active-top{
                     display: flex;
-                    transition: 4s;
                     align-items: center;
                     justify-content: space-between;
+                    transition: all 0.3s ease;
                 }
                 .active{
                     display: block;
-                    transition: 4s;
                     margin-top: 35px;
+                    transition: all 0.3s ease;
                     h1{
                         margin-top: 20px;
                     }
@@ -216,10 +207,6 @@ nav{
         background-color: white;
         background-size: contain !important;
         z-index: 2;
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -ms-border-radius: 50%;
-        -o-border-radius: 50%;
     }
 }
 
@@ -235,7 +222,6 @@ nav{
         background: conic-gradient(from var(--angle),rgb(199, 48, 31),rgb(210, 140, 42),rgb(199, 48, 31));
         animation: spin 3s linear infinite;
         pointer-events: none;
-        -webkit-animation: spin 3s linear infinite;
     }
 
     &::before {
@@ -255,7 +241,6 @@ nav{
         background: conic-gradient(from var(--angle),rgb(83, 83, 83),silver,rgb(83, 83, 83));
         animation: spin 3s linear infinite;
         pointer-events: none;
-        -webkit-animation: spin 3s linear infinite;
     }
 
     &::before {
@@ -276,7 +261,6 @@ nav{
         background: conic-gradient(from var(--angle),blue,rgb(255, 145, 0),blue);
         animation: spin 3s linear infinite;
         pointer-events: none;
-        -webkit-animation: spin 3s linear infinite;
     }
 
     &::before {
@@ -296,7 +280,6 @@ nav{
         background: conic-gradient(from var(--angle),rgb(255, 128, 0),rgb(207, 201, 39),rgb(255, 149, 0), rgb(255, 111, 0));
         animation: spin 3s linear infinite;
         pointer-events: none;
-        -webkit-animation: spin 3s linear infinite;
     }
 
     &::before {
@@ -317,7 +300,6 @@ nav{
         background: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
         animation: spin 3s linear infinite;
         pointer-events: none;
-        -webkit-animation: spin 3s linear infinite;
     }
 
     &::before {
@@ -346,12 +328,6 @@ nav{
 @media all and (max-width: 1300px){
     .n-menu{
         width: 50% !important;
-    }
-    .av{
-        display: none;
-    }
-    .a-img{
-        display: none;  
     }
 }
 @media all and (max-width: 1000px){
@@ -419,3 +395,4 @@ nav{
         font-size: 1.7rem !important;
     }
 }
+
