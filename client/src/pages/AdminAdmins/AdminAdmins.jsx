@@ -96,7 +96,7 @@ const AdminAdmins = () => {
     }
   }, []);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <div className='main-loading'><img src="/Loading.svg" alt="" /></div>
   if (error) return <Error/> 
 
   return (

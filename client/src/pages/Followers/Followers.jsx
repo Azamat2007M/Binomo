@@ -8,6 +8,7 @@ import {
   useGetUserQuery,
 } from '../../redux/features/users';
 import './followers.scss'
+import emptyImg from '../../assets/b-empty.png'
 
 const Followers = () => {
   const [choiceBinomers, setChoiceBinomers] = useState(0);
@@ -135,7 +136,8 @@ const Followers = () => {
         {choiceBinomers === 1 ? (
           <div className="r-card">
           <h1>Followed Channels</h1>
-          {binomers
+          {binomers.filter(item => item.user_id === decoded?.userId).length > 0 ? (
+            binomers
             .filter(item => item.user_id === decoded?.userId)
             .map((el) => {
               return (
@@ -145,35 +147,48 @@ const Followers = () => {
                   <p>{Math.round(buser.filter((elements) => elements._id === el.author_id).map((elements) => elements.wallet))}$</p>
                 </Link>
               );
-            })}
+            })) : (
+              <div className="b-empty">
+                <img src={emptyImg} alt="Empty" />
+              </div>
+            )}
         </div>
         ) : (
-          <div className="b-card">
-            {binomers
-            .filter(item => item.author_id === decoded?.userId)
-            .map((el) => {
-              return (
-                <div className="b-line" key={el._id}>
-                    {buser.filter((elements) => elements._id === el.user_id).map((elements) => {
-                      return(
-                        <div className="some">
-                        <div className="bl-top">
-                          <img src={elements?.image} alt="" />
-                          <div className="bl-info">
-                            <b>{elements?.name}</b>
-                            <p>Followers: {elements?.followers}</p>
-                          </div>
+          <div className="b-card1">
+            {(() => {
+              const filteredBinomers = binomers
+                .filter(item => item.author_id === decoded?.userId)
+                .filter(el => buser.some(elements => elements._id === el.user_id));
+              
+              if (filteredBinomers.length === 0) {
+                return (
+                  <div className="b-empty" style={{width: "90%", margin: "auto"}}>
+                    <img src={emptyImg} alt="Empty" />
+                  </div>
+                );
+              }
+              
+              return filteredBinomers.map((el) => {
+                const user = buser.find(elements => elements._id === el.user_id);
+                return (
+                  <div className="b-line" key={el._id}>
+                    <div className="some">
+                      <div className="bl-top">
+                        <img src={`http://localhost:8000/${user?.image}`} alt="" />
+                        <div className="bl-info">
+                          <b>{user?.name}</b>
+                          <p>Followers: {user?.followers}</p>
                         </div>
-                        <p>Balance: {Math.round(elements?.wallet)}$</p>
-                        <div className="b-buttons">
-                          <Link to={`/user/${el.user_id}`} style={{width: '100%'}} className='b-view'>View</Link>
-                        </div>
-                        </div>
-                      )
-                    })}
-                </div>
-              )
-            })}
+                      </div>
+                      <p>Balance: {Math.round(user?.wallet)}$</p>
+                      <div className="b-buttons">
+                        <Link to={`/user/${el.user_id}`} style={{width: '100%'}} className='b-view'>View</Link>
+                      </div>
+                    </div>
+                  </div>
+                );
+              });
+            })()}
           </div>
         )}
         </div>
