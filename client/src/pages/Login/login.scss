@@ -140,10 +140,18 @@ $black-b: #1E1F22;
   .lw-card{
     width: 80% !important;
   }
+  .btnpass{
+    width: 30% !important;
+    img{
+      width: 40px !important;
+      height: 50px !important;
+      position: absolute;
+    }
+  }
 }
 @media all and (max-width: 700px){
   .btnpass{
-    width: 50% !important;
+    width: 20% !important;
   }
   .a-img{
     width: 40px !important;

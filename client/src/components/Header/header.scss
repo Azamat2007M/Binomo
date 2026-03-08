@@ -27,6 +27,7 @@ header{
                 margin-right: 50px;
             }
             button{
+                width: 200px !important;
                 padding: 20px 30px;
                 font-size: 1.5rem;
                 font-weight: 600;
@@ -155,4 +156,26 @@ section{
             }
         }
     }
+}
+
+
+@media all and (max-width: 1000px){
+  .h-right{
+    display: none;
+  }
+  .banner{
+    display: block;
+    .h-left{
+      width: 80% !important;
+      h1{
+        width: 20% !important;
+      }
+    }
+  }
+  .h-left{
+    width: 100%;
+    h1{
+      font-size: 2.5rem;
+    }
+  }
 }

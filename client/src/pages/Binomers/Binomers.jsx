@@ -104,7 +104,7 @@ const Binomers = () => {
     }
   }, [buser, navigate])
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <div className='main-loading'><img src="/Loading.svg" alt="" /></div>
   if (error) return <Error/> 
 
   return (

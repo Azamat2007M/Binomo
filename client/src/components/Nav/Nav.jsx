@@ -75,7 +75,7 @@ const Nav = () => {
     return () => clearInterval(tradeInterval);
   }, [user, navigate, previousTrades]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <div className='main-loading'><img src="/Loading.svg" alt="" /></div>
   if (error) return <Error/> 
 
   return (
@@ -104,7 +104,7 @@ const Nav = () => {
                 size="30%"
               >
                 <div className="n-line">
-                  <h1>VIP</h1>
+                  <h1><Link to="/">Home</Link></h1>
                 </div>
                 <div className="n-line">
                   <div

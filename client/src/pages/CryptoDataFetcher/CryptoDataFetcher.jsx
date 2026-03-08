@@ -46,7 +46,7 @@ const CryptoDataFetcher = () => {
           <div className="bb-left">
             <h1>Buy, Create & <br /> Sell Crypto Currencies</h1>
             <p>You can trade Cryptocurrency with demo wallet live</p>
-            <button>Trade</button>
+            <button onClick={() => document.getElementById('coins-section').scrollIntoView({ behavior: 'smooth' })}>Trade</button>
           </div>
           <div className="bb-left"></div>
         </div>
@@ -58,7 +58,7 @@ const CryptoDataFetcher = () => {
         {loading ? (
             <Skeleton className='coins skeleton' count={227} />    
         ) : (
-          <section>
+          <section id="coins-section">
             {product.map((element) => {
               return(
                 <div className='c-wrapper' key={element._id}>

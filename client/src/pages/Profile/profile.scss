@@ -156,7 +156,7 @@ $black-b: #1E1F22;
       
       }
       h2 {
-        font-size: clamp(0.9rem, 0.9rem + 1.2vw, 1.2rem);
+        font-size: 1rem;
       }
       p {
         color: white;
@@ -212,7 +212,7 @@ $black-b: #1E1F22;
       border: 2px solid $orange-b;
       h1{
         color: $orange-b;
-        font-size: clamp(0.9rem, 0.9rem + 1.2vw, 1.2rem) !important;  
+        font-size: 1.2rem;  
       }
     }
   }
@@ -273,6 +273,13 @@ $black-b: #1E1F22;
       }
     }
   }
+  @media all and (max-width: 700px) and (max-width: 600px) {
+    .editbtn{
+        b{
+          font-size: 1rem !important;
+        }
+      }
+  }
   @media all and (max-width: 480px) {
     .profile1{
       display: flex;
@@ -287,6 +294,9 @@ $black-b: #1E1F22;
     
 
     .pt-line{
+      h1{
+        font-size: 0.9rem !important;
+      }
       h2{
         font-size: 0.8rem !important;
       }
@@ -298,7 +308,25 @@ $black-b: #1E1F22;
     }
     .editbtn{
         b{
-          font-size: 0.8rem !important;
+          font-size: 0.9rem !important;
+        }
+      }
+    .closebtn{
+        b{
+          font-size: 0.9rem !important;
+        }
+    }
+  }
+
+  @media all and (max-width: 380px) {
+    .p-line{
+      h2{
+        font-size: 0.7rem !important;
+      }
+    }
+     .editbtn{
+        b{
+          font-size: 0.7rem !important;
         }
       }
   }

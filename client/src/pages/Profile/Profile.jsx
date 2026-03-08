@@ -113,7 +113,7 @@ const Profile = () => {
                   <button
                     className="editbtn"
                   >
-                    Edit
+                    <b>Edit</b>
                   </button>
                 </div>
               </Link>
@@ -127,7 +127,7 @@ const Profile = () => {
                       window.location.reload()
                     }}    
                 >
-                  Log out
+                  <b>Log out</b>
                 </button>
               </div>
               </div>
