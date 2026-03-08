@@ -49,27 +49,29 @@ setInterval(async () => {
           percentChange = (trade.startPrice - newPrice) / trade.startPrice
         }
 
-        profit = trade.amount * percentChange * 100
+        profit = trade.amount * percentChange
         trade.endPrice = newPrice;
-        trade.profit = profit;
+        trade.profit = profit * 100;
+        
         trade.status = "closed";
 
         await trade.save();
 
-        if (profit > 0) {
+        try {
+          const userResponse = await axios.get(
+            `http://localhost:8000/users/${trade.userId}`
+          );
+          const currentWallet = userResponse.data.wallet || 0; 
+          const newWallet = currentWallet + (profit * 100);
 
-          const winAmount = profit
-
-          try {
-            await axios.patch(
-              `http://localhost:8000/users/${trade.userId}`,
-              {
-                $inc: { wallet: winAmount }
-              }
-            );
-          } catch (error) {
-            console.log(error, "User wallet didn't change");
-          }
+          await axios.patch(
+            `http://localhost:8000/users/${trade.userId}`,
+            {
+              wallet: newWallet
+            }
+          );
+        } catch (error) {
+          console.log(error, "User wallet didn't update");
         }
       }
     }

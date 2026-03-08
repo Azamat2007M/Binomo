@@ -13,7 +13,11 @@ import { Toaster } from "react-hot-toast";
 import { RxAvatar } from "react-icons/rx";
 import { jwtDecode } from "jwt-decode";
 import { useGetByIdQuery } from "../../redux/features/users";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import Error from "../../pages/Error/Error";
+import axios from "axios";
 
 const Nav = () => {
   const [sections, setSections] = useState({
@@ -21,12 +25,14 @@ const Nav = () => {
     information: false,
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [previousTrades, setPreviousTrades] = useState([]);
   const navigate = useNavigate();
   const decoded = localStorage.getItem("Access")
     ? jwtDecode(localStorage.getItem("Access"))
     : {};
   const { data: user, isLoading, error } = useGetByIdQuery(decoded?.userId, {
     skip: !decoded?.userId,
+    pollingInterval: 5000,
   });
 
   const toggleSection = (name) => {
@@ -40,13 +46,41 @@ const Nav = () => {
     if (user !== null && user?.useractived === false) {
       navigate("/ban");
     }
-  }, [user, navigate]);
+
+    const monitorTrades = async () => {
+      try {
+        const res = await axios.get('http://localhost:1000/transactions');
+        const currentTrades = res.data;
+
+        previousTrades.forEach((trade) => {
+          const currentTrade = currentTrades.find(t => t._id === trade._id);
+          if (trade.status === "open" && currentTrade && currentTrade.status === "closed") {
+            toast.success(`Trade - ${trade?.coin} is closed`, {
+              autoClose: 2000,
+              style: {
+                background: "#1e7e34",
+                color: "white",
+              },
+            });
+          }
+        });
+
+        setPreviousTrades(currentTrades);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    const tradeInterval = setInterval(monitorTrades, 2000);
+    return () => clearInterval(tradeInterval);
+  }, [user, navigate, previousTrades]);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <Error/> 
 
   return (
     <>
+      <ToastContainer position="top-right" />
       <nav>
         <Toaster
           toastOptions={{
@@ -112,12 +146,12 @@ const Nav = () => {
                 </div>
                 <a href="https://t.me/binomoplatform">
                   <button className="b-telegram">
-                    Binomo on Telegram <FaTelegramPlane className="n-icon" />
+                    <p>Binomo on Telegram</p> <FaTelegramPlane className="n-icon" />
                   </button>
                 </a>
                 <a href="https://www.instagram.com/binomo/">
                   <button className="b-instagram">
-                    Binomo on Instagram <FaInstagram className="n-icon" />
+                    <p>Binomo on Instagram</p> <FaInstagram className="n-icon" />
                   </button>
                 </a>
               </Drawer>

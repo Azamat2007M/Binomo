@@ -5,9 +5,6 @@ import { jwtDecode } from 'jwt-decode'
 import Nav from '../../components/Nav/Nav'
 import Footer from '../../components/Footer/Footer'
 import imgUrl from '../../assets/b-empty.png'
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
 
 const Transaction = () => {
     const [infoTrans, setInfoTrans] = useState([])
@@ -35,7 +32,7 @@ const Transaction = () => {
             console.log(infoTrans);
             
             res.data.forEach((transaction) => {
-                if (transaction.status === "open") {
+                if (transaction.status === "open" && new Date(transaction.endTime) > new Date()) {
                     startTransactionTimer(transaction._id, transaction.endTime);
                 }
             });
@@ -46,25 +43,18 @@ const Transaction = () => {
 
     const startTransactionTimer = (id, endTime) => {
         const interval = setInterval(() => {
-        const now = new Date();
-        const end = new Date(endTime);
-        const diff = Math.floor((end - now) / 1000);
-
-        if (diff <= 0) {
-            clearInterval(interval);
-            setActiveTimers((prev) => ({ ...prev, [id]: 0 }));
-            setIsTActive(false)
-            toast.success("The deal was successfully completed.", {
-                style: {
-                    background: "#1e7e34",
-                    color: "white",
-                },
-            });
-            getTransaction();
-        } else {
-            setActiveTimers((prev) => ({ ...prev, [id]: diff }));
-            setIsTActive(true)
-        }
+            const now = new Date();
+            const end = new Date(endTime);
+            const diff = Math.floor((end - now) / 1000);
+            if (diff <= 0) {
+                clearInterval(interval);
+                setActiveTimers((prev) => ({ ...prev, [id]: 0 }));
+                setIsTActive(false)
+                getTransaction();
+            } else {
+                setActiveTimers((prev) => ({ ...prev, [id]: diff }));
+                setIsTActive(true)
+            }
         }, 1000);
     };
     
@@ -149,7 +139,6 @@ const Transaction = () => {
                 )}
             </div>
         </div>
-        <ToastContainer position="top-right" />
         <Footer/>
     </>
   )

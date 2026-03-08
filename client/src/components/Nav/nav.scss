@@ -47,7 +47,7 @@ nav{
             .n-menu{
                 position: absolute;
                 z-index: 50;
-                top: 96px !important;
+                top: 101px !important;
                 background-color: $grey-b;
                 border-right: 2px solid $greyb-b;
                 width: 30%;
@@ -356,7 +356,7 @@ nav{
     }
     
     .n-menu{
-        margin-top: 101px !important;
+        top: 99px !important;
     }
 }
 @media all and (max-width: 600px){
@@ -389,7 +389,9 @@ nav{
     button{
         font-size: 1.1rem !important;
         font-weight: 400;
-        color: white;
+        p{
+            font-size: 1rem !important;
+        }
     }
     .n-icon{
         font-size: 1.7rem !important;

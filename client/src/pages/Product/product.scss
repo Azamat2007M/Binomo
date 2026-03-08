@@ -200,24 +200,36 @@ $black-b: #1E1F22;
         left: 0;
         bottom: 0;
         height: 100%;
-        z-index: 1;
+        z-index: 1000;
         background-color: $black-b;
         padding: 20px;
         color: white;
         display: flex;
         flex-direction: column;
         gap: 20px;
+        overflow-y: auto;
+        transition: width 0.3s ease, transform 0.3s ease;
         .cs-card{
             display: flex;
             justify-content: center;
+            gap: 20px;
             align-items: center;
             flex-direction: column;
             h2{
                 color: $orange-b;
+                font-size: 1.6rem;
+                margin-bottom: 10px;
+            }
+            b{
+                color: rgb(210, 210, 210);
+                font-size: 1rem;
             }
             .cb-line{
                 width: 100%;
                 background-color: black;
+                display: flex;  
+                flex-direction: column;
+                gap: 20px;
                 padding: 20px;
                 border-radius: 20px;
                 .bl-line{
@@ -231,7 +243,8 @@ $black-b: #1E1F22;
                         flex-direction: column;
                         gap: 7px;
                     }
-                    .bl-active{
+                }
+                .bl-active{
                         padding: 10px 50px;
                         border-radius: 15px;
                         font-size: 1.2rem;
@@ -250,14 +263,13 @@ $black-b: #1E1F22;
                         cursor: pointer;
                         color: white;
                     }
-                }
             }
         }
         .t-line{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
         .ch-line{
             width: 100%;
@@ -332,9 +344,10 @@ $black-b: #1E1F22;
             margin-top: 20px;
             border-radius: 25px;
             border: 2px solid $greyb-b;
-            .ct-left{
+
+            .ctleft{
                 p{
-                    color:$black-b !important;
+                    color: rgba(245, 245, 245, 0.616) !important;
                 }
             }
             .ct-right{
@@ -408,7 +421,8 @@ $black-b: #1E1F22;
         .mc-line{
             width: 100%;
             display: flex;
-            justify-content: space-between;
+            
+            gap: 40px;
             align-items: center;
             background-color: black;
             border-radius: 10px;
@@ -418,6 +432,9 @@ $black-b: #1E1F22;
             img{
                 width: 50px;
                 height: 50px;
+            }
+            h2{
+                width: 80px;
             }
         }
     }
@@ -429,15 +446,23 @@ $black-b: #1E1F22;
     h1{
         color: $orange-b;
     }
-    input{
+    h3{
+        color: rgba(255, 255, 255, 0.804);
+        font-size: 1.2rem;
+    }
+    textarea{
         width: 100%;
-        padding: 10px 0 100px 10px;
+        padding: 10px;
         background-color: $grey-b;
         border: 2px solid $orange-b;
         border-radius: 10px;
         outline: none;
         color: white;
         font-size: 1.2rem;
+        resize: none;
+        &::placeholder{
+            font-size: 1rem;
+        }
     }
     button{
         width: 100%;
@@ -452,6 +477,15 @@ $black-b: #1E1F22;
 .active-bar{
     border: 2px solid $orange-b !important;
 }
+.bl-right{
+    display: flex;
+    flex-direction: column; 
+    gap: 5px;
+    p{
+        color: rgba(245, 245, 245, 0.616) !important;
+        font-size: 0.7rem;
+    }
+}
 .bar{
     width: 100% ;
     background: $grey-b;
@@ -461,7 +495,6 @@ $black-b: #1E1F22;
     border-radius: 10px;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(.25,.8,.25,.1);
-    margin-top: 30px;
     span{
         width: 90%;
         animation: profit 3s;
@@ -611,7 +644,6 @@ $black-b: #1E1F22;
   .c-trade {
     width: 100% !important;
   }
-
   .tools-wrapper{
     padding: 30px 15px !important;
   }
@@ -625,6 +657,9 @@ $black-b: #1E1F22;
   }
   .s-line button{
     font-size: 1.6rem !important;
+  }
+  .w-card {
+    padding-left: 0 !important;
   }
 }
 
@@ -650,11 +685,22 @@ $black-b: #1E1F22;
         padding: 30px !important;
     }
 }
+@media all and (min-width: 401px) and (max-width: 500px) {
+    .mc-line{        
+        img{
+            width: 40px !important;
+            height: 40px !important;
+        }
+    }
+}
 
 @media all and (max-width: 500px) {
     .c-trade{
         width: 100% !important;
         padding: 50px !important;
+    }
+    .t-line{
+        font-size: 0.8rem !important;
     }
     .s-line{
         .s-svg{
@@ -670,8 +716,15 @@ $black-b: #1E1F22;
             font-size: 0.8rem !important;
         }
     }
+    .cm-card{
+        input{
+            padding: 10px !important;
+            font-size: 1rem !important;
+        }
+    }
     .csi-wrapper{
-        width: 300px;
+        width: 300px !important;
+        
         .t-line{
             b{
                 font-size: 0.9rem !important;
@@ -683,22 +736,73 @@ $black-b: #1E1F22;
                 font-size: 0.8rem !important;
             }
         }
-        h2{
-            font-size: 0.9rem !important;
+        .mc-line{
+            gap: 15px !important;
+        }
+        .bl-left{
+            gap: 0 !important;
+            h2{
+                font-size: 1.3rem !important;
+            }
+            b{
+                font-size: 0.8rem !important;
+            }
+        }
+        .cb-line{
+            font-size: 0.5rem !important;
         }
         .ch-interval{
             button{
                 font-size: 0.8rem !important;
             }
         }
+        .bl-active, .bl-none{
+            font-size: 0.9rem !important;
+        }
     }
     .c-trade{
         padding: 30px !important;
+    }
+    .cr-card{
+        h3{
+            font-size: 1rem !important;
+        }
+        textarea{
+            font-size: 1rem !important;
+        }
+        button{
+            font-size: 1rem !important;
+        }
     }
 }
 
 
 @media all and (max-width: 400px) {
+    .cr-card{
+        textarea{
+            &::placeholder{
+                font-size: 0.9rem !important;
+            }
+        }
+    }
+    .mc-line{
+        gap: 10px !important;
+        h2{
+            font-size: 0.8rem !important;
+        }
+        img{
+            width: 30px !important;
+            height: 30px !important;
+        }
+    }
+    .t-line{
+        font-size: 0.7rem !important;
+    }
+    .cr-card{
+        h3{
+            max-width: 400px !important;
+        }
+    }
     .csi-wrapper{
         width: 250px !important;
         .ch-interval{

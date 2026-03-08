@@ -6,8 +6,6 @@ import Skeleton from "react-loading-skeleton";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
 import "react-loading-skeleton/dist/skeleton.css";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import "./product.scss";
 import { BiCommentDetail } from "react-icons/bi";
 import { IoMegaphone } from "react-icons/io5";
@@ -22,7 +20,6 @@ import { BsXLg } from "react-icons/bs";
 import { GoPlus } from "react-icons/go";
 import { LuMinus } from "react-icons/lu";
 import { jwtDecode } from "jwt-decode";
-import { toast } from "react-toastify";
 import { Rate } from "antd";
 import { useGetByIdQuery } from "../../redux/features/users";
 import emptyImg from '../../assets/b-empty.png'
@@ -97,7 +94,7 @@ const CryptoDetail = () => {
 
   const postReview = () => {
     const message = `
-      <b>Review User_id: ${decoded?.user?._id}</b>
+      <b>Review User_id: ${decoded?.userId}</b>
 
       <b>Review Text: ${tg}</b>
 
@@ -110,17 +107,18 @@ const CryptoDetail = () => {
     axios
       .post(url)
       .then(() => {
-        window.location.reload();
+        setTg("");
+        setCounts(3);
+        setHandleId(0);
       })
       .catch((error) => {
         console.error("Error posting review:", error);
-        alert("Failed to post review. Please try again later.");
       });
   };
 
   const hGraphChange = (id) => {
     localStorage.setItem("GraphName", id);
-    window.location.reload()
+    window.location.reload();
   };
   const hIntervalChange = (id) => {
     localStorage.setItem("ChInterval", id);
@@ -131,16 +129,12 @@ const CryptoDetail = () => {
     if (cbalance >= 100) {
       const updatedWalletAmount = user.wallet + 5000;
       try {
-        const response = await axios.patch(
-          `http://localhost:8000/users/${decoded.user._id}`,
+        await axios.patch(
+          `http://localhost:8000/users/${decoded.userId}`,
           {
             wallet: updatedWalletAmount,
           }
         );
-        setUser((prevUser) => ({
-          ...prevUser,
-          wallet: response.data.wallet,
-        }));
       } catch (error) {
         console.error("Error updating user wallet:", error);
       }
@@ -172,12 +166,6 @@ const CryptoDetail = () => {
         clearInterval(interval);
         setActiveTimers((prev) => ({ ...prev, [id]: 0 }));
         setIsTActive(false)
-        toast.success("The deal was successfully completed.", {
-          style: {
-            background: "#1e7e34",
-            color: "white",
-          },
-        });
       } else {
         setActiveTimers((prev) => ({ ...prev, [id]: diff }));
         setIsTActive(true)
@@ -210,8 +198,9 @@ const CryptoDetail = () => {
 
   useEffect(() => {
     getProductsInfo();
-    getTransaction()
-    setInterval(() => {
+    getTransaction();
+
+    const timeInterval = setInterval(() => {
       setTime(new Date());
     }, 1000);
 
@@ -239,7 +228,9 @@ const CryptoDetail = () => {
     };
     fetchData();
     fetchCryptoData();
-  }, [symbol]);
+
+    return () => clearInterval(timeInterval);
+  }, [symbol, B_API]);
 
   if (!cryptoData) {
     return (
@@ -331,24 +322,25 @@ const CryptoDetail = () => {
                   <div className="bl-line">
                     <div className="bl-left">
                       <h2>Profitable</h2>
-                      <b>Bonuse for +10000$ balance</b>
+                      <b>Bonuse for +10000$</b>
                       <b>Amount: +5000$</b>
                     </div>
                     <div className="bl-right">
-                      <button
-                        onClick={handleGetB}
-                        className={cbalance >= 100 ? "bl-active" : "bl-none"}
-                      >
-                        Get
-                      </button>
+                      <p>10000$ / {cbalance * 100}$</p>
+                      <span className="bar">
+                        <span
+                          className="profit"
+                          style={{ width: `${cbalance}%` }}
+                        ></span>
+                      </span>
                     </div>
                   </div>
-                  <span className="bar">
-                    <span
-                      className="profit"
-                      style={{ width: `${cbalance}%` }}
-                    ></span>
-                  </span>
+                  <button
+                      onClick={handleGetB}
+                      className={cbalance >= 100 ? "bl-active" : "bl-none"}
+                    >
+                      Get
+                    </button>
                 </div>
               </div>
             </div>
@@ -380,12 +372,11 @@ const CryptoDetail = () => {
                           key={el._id}
                           onClick={() => {
                             navigate(`/coin/${el.symbol.toUpperCase()}USDT`)
-                            window.location.reload()
                           }}
                         >
                           <img src={el.image} alt={el.name} />
                           <h2>{el.name}</h2>
-                          <h2>{el.price}$</h2>
+                          <h2 style={{textAlign: 'right'}}>{el.price}$</h2>
                         </div>
                       ))
                     )}
@@ -399,17 +390,18 @@ const CryptoDetail = () => {
             >
               <div className="cr-card">
                 <div className="t-line">
-                  <h1 style={{ textAlign: "center" }}>Review and Suggestion</h1>
+                  <h1 style={{ margin: "auto" }}>Suggestion <br /> and Review</h1>
                   <BsXLg
                       style={{ cursor: "pointer", position: "absolute", right: "30", top: "30"}}
                       onClick={() => setHandleId(0)}
                     />
                 </div>
                 <h3>You can write here</h3>
-                <input
+                <textarea
                   value={tg}
                   onChange={(e) => setTg(e.target.value)}
-                  type="text"
+                  rows="3"
+                  placeholder="Write your suggestion or review here..."
                 />
                 <Rate onChange={(value) => setCounts(value)} defaultValue={3} />
                 <button style={{cursor: 'pointer'}} onClick={postReview}>Send</button>
@@ -540,7 +532,7 @@ const CryptoDetail = () => {
               amount={countTrade}
               tradePosition="Buy"
               duration={timer}
-              onTradeCreated={() => window.location.reload()}
+              onTradeCreated={() => getTransaction()}
             />
             <ProductButton
               userId={user._id}
@@ -548,12 +540,11 @@ const CryptoDetail = () => {
               amount={countTrade}
               tradePosition="Sell"
               duration={timer}
-              onTradeCreated={() => window.location.reload()}
+              onTradeCreated={() => getTransaction()}
             />
           </div>
         </div>
       </div>
-      <ToastContainer position="top-right" />
       <Footer />
     </>
   );

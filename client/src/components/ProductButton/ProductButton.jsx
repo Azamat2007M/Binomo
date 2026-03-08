@@ -15,7 +15,7 @@ const ProductButton = ({userId, coin, amount, tradePosition, onTradeCreated, dur
     try {
       const getTrans = await axios.get("http://localhost:1000/transactions")
       if (getTrans.data.find((el) => el.status == "open")) {
-        toast.warning("У вас оже открыто сделка!", {
+        toast.warning("You already have an open deal!", {
           autoClose: 3000,
           style: {
             background: "red",
@@ -34,7 +34,7 @@ const ProductButton = ({userId, coin, amount, tradePosition, onTradeCreated, dur
       });
 
       const trade = response.data;
-      toast.success(`✅ ${tradePosition.toUpperCase()} успешно выполнен!`, {
+      toast.success(`✅ ${tradePosition.toUpperCase()} successfully executed!`, {
         autoClose: 3000,
         style: {
           background: "#1e7e34",
@@ -46,7 +46,7 @@ const ProductButton = ({userId, coin, amount, tradePosition, onTradeCreated, dur
 
     } catch (err) {
       console.error("Error creating trade:", err);
-      toast.error("❌ Ошибка при выполнении сделки!", {
+      toast.error("❌ Error creating trade!", {
         autoClose: 3000,
       });
     } finally {
