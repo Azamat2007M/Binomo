@@ -153,7 +153,7 @@ const AdminAdmins = () => {
                     <i className="uil uil-clock-three"></i>
                     <span className="text">Admins Control</span>
                 </div>
-                <div className="activity-data-second">
+                <div className="activity-data-second act-user-scroll">
                     {adminSearch?.filter((el) => el?.role === 'admin' && el?._id !== decoded?.userId).length === 0 ? (
                         <div className="no-data">
                             <PiEmptyBold />
@@ -170,10 +170,10 @@ const AdminAdmins = () => {
                                     <span>{el?.email}</span>
                                 </div>
                                 <div className="al-line">
-                                    <span>{Number(el?.wallet).toFixed(2)}</span>
+                                    <span style={{margin: "auto"}}>{Number(el?.wallet).toFixed(2)}</span>
                                 </div>
                                 <div className="al-line">
-                                    <span>{el?.useractived ? 'Active' : 'Baned'}</span>
+                                    <span style={{margin: "auto"}}>{el?.useractived ? 'Active' : 'Baned'}</span>
                                 </div>
                                 <div className="al-btn">
                                   <button className='b-ban' onClick={() => UpdateProduct(el?._id)}>Ban</button>

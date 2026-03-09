@@ -170,10 +170,10 @@ const AdminUsers = () => {
                                     <span>{el?.email}</span>
                                 </div>
                                 <div className="al-line">
-                                    <span>{Number(el?.wallet).toFixed(2)}</span>
+                                    <span style={{margin: "auto"}}>{Number(el?.wallet).toFixed(2)}</span>
                                 </div>
                                 <div className="al-line">
-                                    <span>{el?.useractived ? 'Active' : 'Baned'}</span>
+                                    <span style={{margin: "auto"}}>{el?.useractived ? 'Active' : 'Baned'}</span>
                                 </div>
                                 <div className="al-btn">
                                 <button className='b-ban' onClick={() => updateUserStatus(el?._id, el?.useractived)}>{el?.useractived ? "Ban" : "Unban"}</button>

@@ -549,7 +549,11 @@ aside.close ~ .dashboard .top{
         display: flex;
     }
     .act-user-scroll{
-        min-width: 1000px;
         overflow-x: scroll !important;
+        padding-bottom: 20px;
+    }
+    .ad-line{
+        min-width: 1000px !important;
+        max-width: 1000px !important;
     }
 }

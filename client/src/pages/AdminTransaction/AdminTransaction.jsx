@@ -143,7 +143,7 @@ const AdminAdmins = () => {
                     <i className="uil uil-clock-three"></i>
                     <span className="text">Transactions</span>
                 </div>
-                <div className="activity-data-second">
+                <div className="activity-data-second act-tr-scroll">
                     {filteredTransactions.length > 0 ? filteredTransactions?.map((el) => {
                         return(
                             <div className="adt-line" key={el?.userId}>
