@@ -50,8 +50,8 @@ const Nav = () => {
     const monitorTrades = async () => {
       try {
         const res = await axios.get('http://localhost:1000/transactions');
-        const currentTrades = res.data;
-
+        const currentTrades = res.data.filter(trade => trade.userId === decoded.userId) || [];
+        
         previousTrades.forEach((trade) => {
           const currentTrade = currentTrades.find(t => t._id === trade._id);
           if (trade.status === "open" && currentTrade && currentTrade.status === "closed") {

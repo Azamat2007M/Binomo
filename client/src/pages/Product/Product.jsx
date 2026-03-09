@@ -24,6 +24,9 @@ import { Rate } from "antd";
 import { useGetByIdQuery } from "../../redux/features/users";
 import emptyImg from '../../assets/b-empty.png'
 import ProductButton from "../../components/ProductButton/ProductButton";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import Error from "../Error/Error";
 
 const CryptoDetail = () => {
@@ -126,6 +129,17 @@ const CryptoDetail = () => {
   }
 
   const handleGetB = async () => {
+    if (user?.bonusClaimed) {
+      toast.warning("Bonus already received!", {
+        autoClose: 2000,
+        style: {
+          background: "red",
+          color: "white",
+        },
+      });
+      return;
+    }
+
     if (cbalance >= 100) {
       const updatedWalletAmount = user.wallet + 5000;
       try {
@@ -133,8 +147,16 @@ const CryptoDetail = () => {
           `http://localhost:8000/users/${decoded.userId}`,
           {
             wallet: updatedWalletAmount,
+            bonusClaimed: true
           }
         );
+        toast.success(`✅ Bonus claimed successfully!`, {
+          autoClose: 3000,
+          style: {
+            background: "#1e7e34",
+            color: "white",
+          },
+        });
       } catch (error) {
         console.error("Error updating user wallet:", error);
       }
@@ -144,9 +166,10 @@ const CryptoDetail = () => {
   const getTransaction = async () => {
     try {
       const res = await axios.get('http://localhost:1000/transactions');
-      setInfoTrans(res.data);
+      const userTransactions = res.data.filter((transaction) => transaction.userId === decoded.userId);
+      setInfoTrans(userTransactions);
 
-      res.data.forEach((transaction) => {
+      userTransactions.forEach((transaction) => {
         if (transaction.status === "open") {
           startTransactionTimer(transaction._id, transaction.endTime);
         }
@@ -251,6 +274,7 @@ const CryptoDetail = () => {
   return (
     <>
       <Nav />
+      <ToastContainer position="top-right" />
       <div className="w-card">
         <div className="tools-side">
           <div className="cs-wrapper">
@@ -337,7 +361,8 @@ const CryptoDetail = () => {
                   </div>
                   <button
                       onClick={handleGetB}
-                      className={cbalance >= 100 ? "bl-active" : "bl-none"}
+                      disabled={user?.bonusClaimed || cbalance < 100}
+                      className={cbalance >= 100 && !user?.bonusClaimed ? "bl-active" : "bl-none"}
                     >
                       Get
                     </button>

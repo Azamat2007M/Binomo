@@ -59,6 +59,7 @@ const Register = () => {
       formData.append("realwallet", false);
       formData.append("followers", 0);
       formData.append("enterConditional", true);
+      formData.append("bonusClaimed", false);
       formData.append("role", "user");
       formData.append("level", 1);
 
