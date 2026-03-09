@@ -105,6 +105,7 @@ const Register = () => {
               id="file"
               onChange={handleFileChange}
               accept="image/*"
+              required
             />
             <label htmlFor="file">Выберите файл</label>
           </div>

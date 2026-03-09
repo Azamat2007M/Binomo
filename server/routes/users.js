@@ -37,12 +37,12 @@ router.post("/", async (req, res) => {
   const { name } = req.body;
 
   let user = await User.findOne({ name });
-  if (user) return res.send("Bu ismli User mavjud!");
+  if (user) return res.send("User already exists!");
 
   user = new User(req.body);
   await user.save();
 
-  res.send("User yaratilindi: OK");
+  res.send("User is created: OK");
 });
 //post
 
@@ -50,10 +50,16 @@ router.post("/", async (req, res) => {
 router.post("/register", upload.single("image"), async (req, res) => {
   try {
     const emailExists = await User.findOne({ email: req.body.email });
+    const imagePath = req?.file || req?.file?.path;
+
+    if (!imagePath) {
+      return res.status(400).json({ message: "Image is required" });
+    }
 
     if (emailExists) {
-      return res.status(400).send("User uje bor!");
+      return res.status(400).send("User with this email already exists!");
     }
+
 
     bcrypt.hash(req.body.password, 10, async (err, hashedPwd) => {
       if (err) {

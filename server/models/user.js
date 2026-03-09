@@ -57,6 +57,10 @@ const userSchema = new mongoose.Schema(
         followers: {
             type: Number,
             required: true,
+        },
+        bonusClaimed: {
+            type: Boolean,
+            default: false, 
         }
         
     },
