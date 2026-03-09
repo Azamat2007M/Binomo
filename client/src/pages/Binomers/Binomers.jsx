@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import {
+  useGetByIdQuery,
   useGetUserQuery,
 } from '../../redux/features/users';
 import './binomers.scss';
@@ -20,6 +21,9 @@ const Binomers = () => {
   const { data: buser, isLoading, error } = useGetUserQuery();
   const API = 'http://localhost:8000/'
   const [isFollowing, setIsFollowing] = useState(false); 
+  const {data: user} = useGetByIdQuery(decoded?.userId, {
+      skip: !decoded?.userId
+    });
 
   const handleF = async (userid) => {
     try {      
@@ -56,7 +60,6 @@ const Binomers = () => {
       setIsFollowing(true); 
 
       const userToUpdate = buser.find(user => user?._id === userid);
-      console.log(userToUpdate);
       
       if (!userToUpdate) {
         console.error("User not found");
@@ -95,14 +98,14 @@ const Binomers = () => {
 
   useEffect(() => {
     getBinomers()
-    if (buser) { 
-      if (buser.useractived === false) {
+    if (!user) { 
+      if (user.useractived === false) {
         navigate("/ban")
       } else {
         navigate("/binomers")
       }
     }
-  }, [buser, navigate])
+  }, [user, navigate])
 
   if (isLoading) return <div className='main-loading'><img src="/Loading.svg" alt="" /></div>
   if (error) return <Error/> 

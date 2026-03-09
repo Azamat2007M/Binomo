@@ -314,9 +314,9 @@ const CryptoDetail = () => {
                 <div className="t-line">
                   <h1>Bonuses</h1>
                   <BsXLg
-                      style={{ cursor: "pointer", position: "absolute", right: "20"}}
-                      onClick={() => setHandleId(0)}
-                    />
+                    style={{ cursor: "pointer", position: "absolute", right: "20"}}
+                    onClick={() => setHandleId(0)}
+                  />
                 </div>
                 <div className="cb-line">
                   <div className="bl-line">

@@ -66,16 +66,14 @@ const Admin = () => {
   }, []);
 
   useEffect(() => {
-    if (user !== null) {
+    if (!user) {
       if (user?.role === 'admin') {
         navigate("/admin");
-      } else if (localStorage.getItem("Access")) {
-        navigate(-1);
       } else {
         navigate("/");
       }
     }
-  }, [user]);
+  }, [user, navigate]);
 
   if (isLoading) return <div className='main-loading'><img src="/Loading.svg" alt="" /></div>
   if (error) return <Error/> 
