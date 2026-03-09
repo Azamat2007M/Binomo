@@ -153,7 +153,7 @@ const AdminUsers = () => {
                     <i className="uil uil-clock-three"></i>
                     <span className="text">Users Control</span>
                 </div>
-                <div className="activity-data-second">
+                <div className="activity-data-second act-user-scroll">
                     {userSearch?.filter((el) => el?.role === 'user').length === 0 ? (
                         <div className="no-data">
                             <PiEmptyBold />

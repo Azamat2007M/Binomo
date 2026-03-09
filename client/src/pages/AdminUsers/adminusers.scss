@@ -40,7 +40,6 @@ $black-b: #1E1F22;
 }
 
 :root{
-    /* ===== Colors ===== */
     --primary-color: #0E4BF1;
     --panel-color: #FFF;
     --text-color: #000;
@@ -51,8 +50,6 @@ $black-b: #1E1F22;
     --box2-color: #FFE6AC;
     --box3-color: #E7D1FC;
     --title-icon-color: #fff;
-    
-    /* ====== Transition ====== */
     --tran-05: all 0.5s ease;
     --tran-03: all 0.3s ease;
     --tran-03: all 0.2s ease;
@@ -73,7 +70,6 @@ body.dark{
     --box3-color: #3A3B3C;
     --title-icon-color: #CCC;
 }
-/* === Custom Scroll Bar CSS === */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -551,30 +547,9 @@ aside.close ~ .dashboard .top{
 @media (max-width: 1200px) {
     .ad-line{
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        span{
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            margin: auto;
-        }
-        .al-btn{
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            button{
-                width: 100%;
-                padding: 20px 0 !important;
-                font-size: 1.2rem;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-        }
+    }
+    .act-user-scroll{
+        min-width: 1000px;
+        overflow-x: scroll !important;
     }
 }

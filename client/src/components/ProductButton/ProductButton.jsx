@@ -14,7 +14,7 @@ const ProductButton = ({userId, coin, amount, tradePosition, onTradeCreated, dur
     setLoading(true);
     try {
       const getTrans = await axios.get("http://localhost:1000/transactions")
-      if (getTrans.data.find((el) => el.status == "open")) {
+      if (getTrans.data.find((el) => el.status == "open" && el.userId === userId)) {
         toast.warning("You already have an open deal!", {
           autoClose: 3000,
           style: {

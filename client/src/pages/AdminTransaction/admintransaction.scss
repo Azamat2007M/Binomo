@@ -88,7 +88,6 @@ body.dark{
     --box3-color: #3A3B3C;
     --title-icon-color: #CCC;
 }
-/* === Custom Scroll Bar CSS === */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -459,6 +458,16 @@ aside.close ~ .dashboard .top{
         width: calc(100% / 2 - 15px);
         margin-top: 15px;
     }
+    .activity-data-second{
+        overflow-X: scroll;
+        padding-bottom: 20px;
+    }
+
+    .adt-line{
+        min-width: 700px !important;
+        max-width: 700px !important;
+    }
+    
 }
 @media (max-width: 560px) {
     .dash-content .boxes .box{

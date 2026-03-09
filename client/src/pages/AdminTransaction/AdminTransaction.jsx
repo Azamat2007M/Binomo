@@ -146,21 +146,21 @@ const AdminAdmins = () => {
                 <div className="activity-data-second">
                     {filteredTransactions.length > 0 ? filteredTransactions?.map((el) => {
                         return(
-                            <div className="adt-line" key={el?.user}>
+                            <div className="adt-line" key={el?.userId}>
                                 <div className="al-line">
-                                    <span>{buser?.find((item) => el?.user === item?._id)?.name}</span>
+                                    <span>{buser?.find((item) => el?.userId === item?._id)?.name}</span>
                                 </div>
                                 <div className="al-line">
                                     <span>{el?.coin}</span>
                                 </div>
                                 <div className="al-line">
-                                    <span>{el?.time}</span>
+                                    <span>{new Date(el?.startTime).getHours()}:{new Date(el?.startTime).getMinutes() < 10 ? "0"+new Date(el?.startTime).getMinutes() : new Date(el?.startTime).getMinutes()}</span>
                                 </div>
                                 <div className="al-line">
                                     <span>{el?.amount}$</span>
                                 </div>
                                 <div className="al-line">
-                                    <span>{Number(el?.price).toFixed(2)}</span>
+                                    <span>{Number(el?.startPrice).toFixed(2)}</span>
                                 </div>
                                 <div className="al-line">
                                 {el?.tradePosition == 'Sell' ? (
@@ -170,13 +170,13 @@ const AdminAdmins = () => {
                                     )}
                                 </div>
                                 <div className="al-line">
-                                    <span>{Number(el?.newprice).toFixed(2)}</span>
+                                    <span>{Number(el?.endPrice).toFixed(2)}</span>
                                 </div>
                                 <div className="al-line">
                                     {el?.profit[0] == '-' ? (
-                                      <span style={{color: 'red'}}>{Number(el?.profit).toFixed(2)}</span>
+                                      <span style={{color: 'red'}}>{Number(el?.profit).toFixed(2)}$</span>
                                     ) : (
-                                      <span style={{color: 'lime'}}>+{Number(el?.profit).toFixed(2)}</span>
+                                      <span style={{color: 'lime'}}>+{Number(el?.profit).toFixed(2)}$</span>
                                     )}
                                 </div>
                             </div>

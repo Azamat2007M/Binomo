@@ -443,6 +443,10 @@ aside.close ~ .dashboard .top{
     }
     .activity .activity-data{
         overflow-X: scroll;
+        padding-bottom: 20px;
+    }
+    aside .dashboard{
+        padding-bottom: 500px !important;
     }
 }
 @media (max-width: 780px) {
@@ -452,7 +456,6 @@ aside.close ~ .dashboard .top{
     }
     .adt-line{
         display: flex;
-        flex-direction: column;
         
         span{
             margin: auto;
@@ -463,6 +466,9 @@ aside.close ~ .dashboard .top{
 @media (max-width: 560px) {
     .dash-content .boxes .box{
         width: 100% ;
+    }
+    .dashboard{
+        padding-bottom: 200px !important;
     }
 }
 @media (max-width: 400px) {
