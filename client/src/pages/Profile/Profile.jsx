@@ -131,6 +131,17 @@ const Profile = () => {
                 </button>
               </div>
               </div>
+              <div className="btn-admin">
+                {user?.role === 'admin' ? (
+                  <button
+                    className="p-adminbtn"
+                    
+                    onClick={() => navigate('/admin')}
+                  >
+                    <b>Admin Panel</b>
+                  </button>
+                ) : null}
+              </div>
             </div>
           </div>
       ) : null}

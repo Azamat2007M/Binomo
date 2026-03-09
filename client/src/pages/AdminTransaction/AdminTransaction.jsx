@@ -3,10 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import {
+  useGetByIdQuery,
   useGetUserQuery,
 } from '../../redux/features/users';
 import './admintransaction.scss';
 import { Switch } from 'antd';
+import { PiEmptyBold } from "react-icons/pi";
 import Error from '../Error/Error';
 
 const AdminAdmins = () => {
@@ -23,11 +25,10 @@ const AdminAdmins = () => {
   const [search, setSearch] = useState('');
   const [checking, setChecking] = useState(false);
   const [infoTrans, setInfoTrans] = useState([])
-  
 
   const getTransaction = async () => {
     await axios
-        .get('http://localhost:7777/transaction')
+        .get('http://localhost:1000/transactions')
         .then((res) => {
             setInfoTrans(res.data);
         })
@@ -35,6 +36,7 @@ const AdminAdmins = () => {
             alert(err);
         })
   }
+
   useEffect(() => {
     getTransaction()
   }, []);
@@ -50,18 +52,6 @@ const AdminAdmins = () => {
       }
     }
   }, [user]);
-
-  useEffect(() => {
-    const getMode = localStorage.getItem("mode");
-    if (getMode && getMode === "dark") {
-      bodyRef.current.classList.toggle("dark");
-    }
-
-    const getStatus = localStorage.getItem("status");
-    if (getStatus && getStatus === "close") {
-      sidebarRef.current.classList.toggle("close");
-    }
-  }, []);
 
   const handleModeToggle = () => {
     bodyRef.current.classList.toggle("dark");
@@ -81,7 +71,7 @@ const AdminAdmins = () => {
       localStorage.setItem("status", "open");
     }
   };
-  const gameSearch = infoTrans?.filter((el) => {
+  const filteredTransactions = infoTrans?.filter((el) => {
     return el.coin.toLowerCase().includes(search.toLowerCase());
   });
 
@@ -145,7 +135,7 @@ const AdminAdmins = () => {
                 <i className="uil uil-search"></i>
                 <input type="text" onChange={(e) => setSearch(e.target.value)} placeholder="Search here..."/>
             </div>
-            <img src={user?.image} alt="" style={{cursor: 'pointer'}} onClick={() => navigate('/profile')}/>
+            <img src={`http://localhost:8000/${user?.image}`} alt="" style={{cursor: 'pointer'}} onClick={() => navigate('/profile')}/>
         </div>
         <div className="dash-content">
             <div className="activity">
@@ -154,7 +144,7 @@ const AdminAdmins = () => {
                     <span className="text">Transactions</span>
                 </div>
                 <div className="activity-data-second">
-                    {gameSearch?.map((el) => {
+                    {filteredTransactions.length > 0 ? filteredTransactions?.map((el) => {
                         return(
                             <div className="adt-line" key={el?.user}>
                                 <div className="al-line">
@@ -191,7 +181,12 @@ const AdminAdmins = () => {
                                 </div>
                             </div>
                         )
-                    })}
+                    }) : (
+                        <div className="no-data">
+                            <PiEmptyBold />
+                            <p>No transactions found</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

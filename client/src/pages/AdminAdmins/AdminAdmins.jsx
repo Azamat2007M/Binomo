@@ -1,13 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import {
+  useGetByIdQuery,
   useGetUserQuery,
+  useDeleteUserMutation,
+  useUpdateUserMutation
 } from '../../redux/features/users';
 import './adminadmins.scss';
 import { Switch } from 'antd';
 import Error from '../Error/Error';
+import { PiEmptyBold } from "react-icons/pi";
 
 const AdminAdmins = () => {
   const navigate = useNavigate();
@@ -18,12 +21,14 @@ const AdminAdmins = () => {
     skip: !decoded?.userId
   });
   const { data: buser, isLoading, error } = useGetUserQuery();
+  const [deleteUser] = useDeleteUserMutation();
+  const [updateUser] = useUpdateUserMutation();
   const bodyRef = useRef(null);
   const sidebarRef = useRef(null);
   const [search, setSearch] = useState('');
   const [checking, setChecking] = useState(false);
   const [somed, setsomed] = useState(false);
-  const gameSearch = buser?.filter((el) => {
+  const adminSearch = buser?.filter((el) => {
     return el.name.toLowerCase().includes(search.toLowerCase());
   });
   const onChange = (checked) => {
@@ -36,18 +41,14 @@ const AdminAdmins = () => {
 
   const UpdateProduct = async (user_id) => {
     try {
-      await axios.patch(`http://localhost:8000/users/${user_id}`, {
-        useractived: false,
-      })
-      .then(() => window.location.reload())
+      await updateUser({ id: user_id, useractived: false }).unwrap();
     } catch (err) {
       alert(err);
     }
   }
   const DeleteUser = async (user_id) => {
     try {
-      await axios.delete(`http://localhost:8000/users/${user_id}`);
-      window.location.reload();
+      await deleteUser({ id: user_id }).unwrap();
     } catch (err) {
       alert(err);
     }
@@ -83,18 +84,6 @@ const AdminAdmins = () => {
       }
     }
   }, [user]);
-
-  useEffect(() => {
-    const getMode = localStorage.getItem("mode");
-    if (getMode && getMode === "dark") {
-      bodyRef.current.classList.toggle("dark");
-    }
-
-    const getStatus = localStorage.getItem("status");
-    if (getStatus && getStatus === "close") {
-      sidebarRef.current.classList.toggle("close");
-    }
-  }, []);
 
   if (isLoading) return <div className='main-loading'><img src="/Loading.svg" alt="" /></div>
   if (error) return <Error/> 
@@ -156,7 +145,7 @@ const AdminAdmins = () => {
                 <i className={somed ? 'somed' : 'uil uil-search'} onClick={() => setsomed(true)}></i>
                 <input type="text" onChange={(e) => setSearch(e.target.value)} placeholder="Search here..."/>
             </div>
-            <img src={user?.image} alt="" style={{cursor: 'pointer'}} onClick={() => navigate('/profile')}/>
+            <img src={`http://localhost:8000/${user?.image}`} alt="" style={{cursor: 'pointer'}} onClick={() => navigate('/profile')}/>
         </div>
         <div className="dash-content">
             <div className="activity">
@@ -165,12 +154,18 @@ const AdminAdmins = () => {
                     <span className="text">Admins Control</span>
                 </div>
                 <div className="activity-data-second">
-                    {gameSearch?.filter((el) => el?.role === 'admin' && el?._id !== decoded?.user?._id).map((el) => {
-                        return(
-                            <div className="ad-line">
-                                <div className="al-line">
-                                    <span>{el?.name}</span>
-                                </div>
+                    {adminSearch?.filter((el) => el?.role === 'admin' && el?._id !== decoded?.userId).length === 0 ? (
+                        <div className="no-data">
+                            <PiEmptyBold />
+                            <p>No admins found</p>
+                        </div>
+                    ) : (
+                        adminSearch?.filter((el) => el?.role === 'admin' && el?._id !== decoded?.userId).map((el) => {
+                            return(
+                                <div className="ad-line" key={el?._id}>
+                                    <div className="al-line">
+                                        <span>{el?.name}</span>
+                                    </div>
                                 <div className="al-line">
                                     <span>{el?.email}</span>
                                 </div>
@@ -187,7 +182,7 @@ const AdminAdmins = () => {
                                 </div>
                             </div>
                         )
-                    })}
+                    }))}
                 </div>
             </div>
         </div>

@@ -1,14 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import {
   useGetUserQuery,
-  useDeleteUserMutation
+  useDeleteUserMutation,
+  useGetByIdQuery,
+  useUpdateUserMutation
 } from '../../redux/features/users';
 import './adminusers.scss';
 import { Switch } from 'antd';
 import Error from '../Error/Error';
+import { PiEmptyBold } from "react-icons/pi";
 
 const AdminUsers = () => {
   const navigate = useNavigate();
@@ -20,14 +22,14 @@ const AdminUsers = () => {
   });
   const { data: buser, isLoading, error } = useGetUserQuery();
   const [deleteUser] = useDeleteUserMutation()
+  const [updateUser] = useUpdateUserMutation()
   const bodyRef = useRef(null);
   const sidebarRef = useRef(null);
   const [search, setSearch] = useState('');
   const [checking, setChecking] = useState(false);
-  const gameSearch = buser?.filter((el) => {
+  const userSearch = buser?.filter((el) => {
     return el.name.toLowerCase().includes(search.toLowerCase());
   });
-  console.log(gameSearch);
   const onChange = (checked) => {
     if (!checked) {
       setChecking(false)
@@ -36,12 +38,9 @@ const AdminUsers = () => {
     }
   };
 
-  const updateProduct = async (user_id, useractived) => {
+  const updateUserStatus = async (user_id, useractived) => {
     try {
-      await axios.patch(`http://localhost:8000/users/${user_id}`, {
-        useractived: !useractived,
-      })
-      .then(() => window.location.reload())
+      await updateUser({ id: user_id, useractived: !useractived }).unwrap();
     } catch (err) {
       alert(err);
     }
@@ -73,19 +72,6 @@ const AdminUsers = () => {
       localStorage.setItem("status", "open");
     }
   };
-
-
-  useEffect(() => {
-    const getMode = localStorage.getItem("mode");
-    if (getMode && getMode === "dark") {
-      bodyRef.current.classList.toggle("dark");
-    }
-
-    const getStatus = localStorage.getItem("status");
-    if (getStatus && getStatus === "close") {
-      sidebarRef.current.classList.toggle("close");
-    }
-  }, []);
 
   useEffect(() => {
     if (user !== null) {
@@ -159,7 +145,7 @@ const AdminUsers = () => {
                 <i className="uil uil-search"></i>
                 <input type="text" onChange={(e) => setSearch(e.target.value)} placeholder="Search here..."/>
             </div>
-            <img src={user?.image} alt="" style={{cursor: 'pointer'}} onClick={() => navigate('/profile')}/>
+            <img src={`http://localhost:8000/${user?.image}`} alt="" style={{cursor: 'pointer'}} onClick={() => navigate('/profile')}/>
         </div>
         <div className="dash-content">
             <div className="activity">
@@ -168,12 +154,18 @@ const AdminUsers = () => {
                     <span className="text">Users Control</span>
                 </div>
                 <div className="activity-data-second">
-                    {gameSearch?.filter((el) => el?.role === 'user').map((el) => {
-                        return(
-                            <div className="ad-line"  key={el?._id}>
-                                <div className="al-line">
-                                    <span>{el?.name}</span>
-                                </div>
+                    {userSearch?.filter((el) => el?.role === 'user').length === 0 ? (
+                        <div className="no-data">
+                            <PiEmptyBold />
+                            <p>No users found</p>
+                        </div>
+                    ) : (
+                        userSearch?.filter((el) => el?.role === 'user').map((el) => {
+                            return(
+                                <div className="ad-line"  key={el?._id}>
+                                    <div className="al-line">
+                                        <span>{el?.name}</span>
+                                    </div>
                                 <div className="al-line">
                                     <span>{el?.email}</span>
                                 </div>
@@ -184,7 +176,7 @@ const AdminUsers = () => {
                                     <span>{el?.useractived ? 'Active' : 'Baned'}</span>
                                 </div>
                                 <div className="al-btn">
-                                <button className='b-ban' onClick={() => updateProduct(el?._id, el?.useractived)}>{el?.useractived ? "Ban" : "Unban"}</button>
+                                <button className='b-ban' onClick={() => updateUserStatus(el?._id, el?.useractived)}>{el?.useractived ? "Ban" : "Unban"}</button>
                                 <Link to={`/admin-edit/${el?._id}`}>
                                   <button className='b-edit'>Edit</button>
                                 </Link>
@@ -192,7 +184,7 @@ const AdminUsers = () => {
                                 </div>
                             </div>
                         )
-                    })}
+                    }))}
                 </div>
             </div>
         </div>

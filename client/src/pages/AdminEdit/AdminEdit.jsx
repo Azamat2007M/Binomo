@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
@@ -46,7 +46,7 @@ const AdminEdit = () => {
     }));
   };
 
-  const UpdateProduct = async (e) => {
+  const handleUpdate = async (e) => {
     try {
       await axios.patch(`http://localhost:8000/users/${id}`, {
         image: e.target[0].value,
@@ -91,18 +91,6 @@ const AdminEdit = () => {
       });
     }
   }, [buser]);
-
-  useEffect(() => {
-    const getMode = localStorage.getItem("mode");
-    if (getMode && getMode === "dark") {
-      bodyRef.current.classList.toggle("dark");
-    }
-
-    const getStatus = localStorage.getItem("status");
-    if (getStatus && getStatus === "close") {
-      sidebarRef.current.classList.toggle("close");
-    }
-  }, []);
 
   useEffect(() => {
     if (user !== null) {
@@ -176,7 +164,7 @@ const AdminEdit = () => {
                 <i className="uil uil-search"></i>
                 <input type="text" onChange={(e) => setSearch(e.target.value)} placeholder="Search here..."/>
             </div>
-            <img src={user?.image} alt="" style={{cursor: 'pointer'}} onClick={() => navigate('/profile')}/>
+            <img src={`http://localhost:8000/${user?.image}`} alt="" style={{cursor: 'pointer'}} onClick={() => navigate('/profile')}/>
         </div>
         <div className="dash-content">
             <div className="activity">
@@ -186,7 +174,7 @@ const AdminEdit = () => {
                 </div>
                 <div className="activity-data-third">
                 <div className={checking ? 'au-card-def au-card' : 'au-card'}>
-            <form onSubmit={UpdateProduct}>
+            <form onSubmit={handleUpdate}>
           <h1>Editor</h1>
           <input
             type="text"

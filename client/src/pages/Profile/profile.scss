@@ -235,7 +235,10 @@ $black-b: #1E1F22;
   .btn-wrapper{
     width: 100%;
   }
-
+  .p-adminbtn{
+    background-color: $black-b !important;
+    border: 2px solid $greyb-b !important;
+  }
   @media all and (max-width: 1400px) {
     .profile1{
       width: 55% !important;

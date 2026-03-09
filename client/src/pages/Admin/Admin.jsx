@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import {
+  useGetByIdQuery,
   useGetUserQuery,
 } from '../../redux/features/users';
 import './admin.scss';
@@ -11,6 +12,7 @@ import { FaRegUser } from "react-icons/fa";
 import { LiaCoinsSolid } from "react-icons/lia";
 import { AiOutlineStock } from "react-icons/ai";
 import Error from '../Error/Error';
+import { PiEmptyBold } from 'react-icons/pi';
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -22,10 +24,9 @@ const Admin = () => {
     skip: !decoded?.userId
   });
   const { data: buser, isLoading, error } = useGetUserQuery();
-  const bodyRef = useRef(null);
   const sidebarRef = useRef(null);
   const [search, setSearch] = useState('');
-  const gameSearch = buser?.filter((el) => {
+  const filteredUsers = buser?.filter((el) => {
     return el.name.toLowerCase().includes(search.toLowerCase());
   });
   const [infoTrans, setInfoTrans] = useState([])
@@ -40,7 +41,7 @@ const Admin = () => {
 
   const getTransaction = async () => {
     await axios
-        .get('http://localhost:7777/transaction')
+        .get('http://localhost:1000/transactions')
         .then((res) => {
             setInfoTrans(res.data);
         })
@@ -49,27 +50,18 @@ const Admin = () => {
         })
   }
 
-  const handleModeToggle = () => {
-    bodyRef.current.classList.toggle("dark");
-    if (bodyRef.current.classList.contains("dark")) {
-      localStorage.setItem("mode", "dark");
-    } else {
-      localStorage.setItem("mode", "light");
-    }
-    document.body.style.background = 'dark'
-  };
-
   const handleSidebarToggle = () => {
-    sidebarRef.current.classList.toggle("close");
-    if (sidebarRef.current.classList.contains("close")) {
-      localStorage.setItem("status", "close");
-    } else {
-      localStorage.setItem("status", "open");
+    if (sidebarRef.current) {
+      sidebarRef.current.classList.toggle("close");
+      if (sidebarRef.current.classList.contains("close")) {
+        localStorage.setItem("status", "close");
+      } else {
+        localStorage.setItem("status", "open");
+      }
     }
   };
 
   useEffect(() => {
-    getUser();
     getTransaction()
   }, []);
 
@@ -85,23 +77,12 @@ const Admin = () => {
     }
   }, [user]);
 
-  useEffect(() => {
-    const getMode = localStorage.getItem("mode");
-    if (getMode && getMode === "dark") {
-      bodyRef.current.classList.toggle("dark");
-    }
-
-    const getStatus = localStorage.getItem("status");
-    if (getStatus && getStatus === "close") {
-      sidebarRef.current.classList.toggle("close");
-    }
-  }, []);
-
   if (isLoading) return <div className='main-loading'><img src="/Loading.svg" alt="" /></div>
   if (error) return <Error/> 
+
   return (
     <>
-        <div className="all-wrapper" ref={bodyRef}>
+        <div className="all-wrapper">
         <aside ref={sidebarRef} className={checking ? 'aside-def' : ''}>
         <div className="logo-name">
             <div className="logo-image">
@@ -142,8 +123,8 @@ const Admin = () => {
                         <i className="uil uil-moon"></i>
                     <span className="link-name">Dark Mode</span>
                 </a>
-                <div className="mode-toggle" onClick={handleModeToggle}>
-                  <Switch onChange={onChange} onClick={handleModeToggle}/> 
+                <div className="mode-toggle">
+                  <Switch onChange={onChange}/> 
                 </div>
             </li>
             </ul>
@@ -156,7 +137,7 @@ const Admin = () => {
                 <i className="uil uil-search"></i>
                 <input type="text" onChange={(e) => setSearch(e.target.value)} placeholder="Search here..."/>
             </div>
-            <img src={user?.image} alt="" style={{cursor: 'pointer'}} onClick={() => navigate('/profile')}/>
+            <img src={`http://localhost:8000/${user?.image}`} alt="" style={{cursor: 'pointer'}} onClick={() => navigate('/profile')}/>
         </div>
         <div className="dash-content">
             <div className="overview">
@@ -191,7 +172,7 @@ const Admin = () => {
                     <div className="data names">
                         <span className="data-title">Name</span>
                         <div className="data-info">
-                          {gameSearch?.map((el) => {
+                          {filteredUsers?.map((el) => {
                           return(
                             <span key={el?._id}>{el?.name}</span>
                           )
@@ -201,7 +182,7 @@ const Admin = () => {
                     <div className="data email">
                         <span className="data-title">Email</span>
                         <div className="data-info">
-                        {gameSearch?.map((el) => {
+                        {filteredUsers?.map((el) => {
                           return(
                             <span key={el?._id}>{el?.email}</span>
                           )
@@ -211,7 +192,7 @@ const Admin = () => {
                     <div className="data joined">
                         <span className="data-title">Balance</span>
                         <div className="data-info">
-                        {gameSearch?.map((el) => {
+                        {filteredUsers?.map((el) => {
                           return(
                             <span key={el?._id}>{Number(el?.wallet).toFixed(2)}</span>
                           )
@@ -221,7 +202,7 @@ const Admin = () => {
                     <div className="data type">
                         <span className="data-title">Level</span>
                         <div className="data-info">
-                        {gameSearch?.map((el) => {
+                        {filteredUsers?.map((el) => {
                           return(
                             <div className="dt-line" key={el?._id}>
                               {el?.level === 1 ? (
@@ -243,7 +224,7 @@ const Admin = () => {
                     <div className="data status">
                         <span className="data-title">Status</span>
                         <div className="data-info">
-                        {gameSearch?.map((el) => {
+                        {filteredUsers?.map((el) => {
                           return(
                             <span key={el?._id}>{el?.useractived ? 'Active' : 'False'}</span>
                           )
@@ -251,6 +232,12 @@ const Admin = () => {
                         </div>
                     </div>
                 </div>
+                {filteredUsers?.length === 0 && (
+                  <div className="no-data" style={{marginTop: "20px"}}>
+                    <PiEmptyBold />
+                    <p>No users found</p>
+                  </div>
+                )}
             </div>
         </div>
     </aside>
