@@ -286,9 +286,9 @@ $black-b: #1E1F22;
   @media all and (max-width: 480px) {
     .profile1{
       display: flex;
-      align-items: center;
       .p-image{
         width: 80% !important;
+        margin: auto !important;
       }
       h1{
         font-size: 1rem;
@@ -319,6 +319,12 @@ $black-b: #1E1F22;
           font-size: 0.9rem !important;
         }
     }
+    .p-adminbtn{
+      width: 100% !important;
+      b{
+        font-size: 0.9rem !important;
+      }
+    }
   }
 
   @media all and (max-width: 380px) {
@@ -332,4 +338,14 @@ $black-b: #1E1F22;
           font-size: 0.7rem !important;
         }
       }
+      .closebtn{
+        b{
+          font-size: 0.7rem !important;
+        }
+      } 
+    .p-adminbtn{
+      b{
+        font-size: 0.7rem !important;
+      }
+    }
   }
