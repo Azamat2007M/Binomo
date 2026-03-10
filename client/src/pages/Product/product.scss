@@ -18,6 +18,7 @@ $black-b: #1E1F22;
     height: 700px;
     border-radius: 25px !important;
     animation: skeleton-loading 1s linear infinite alternate;
+    -webkit-animation: skeleton-loading 1s linear infinite alternate;
 }
 .skeleton-side{
     width: 70px;

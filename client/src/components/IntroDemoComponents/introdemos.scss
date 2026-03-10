@@ -8,6 +8,13 @@ $orange-b: #ffdd3c;
     height: 100vh;
     background-color: #1e1f22;
     position: absolute;
+    .skeleton-chart-intro{
+        width: 1400px;
+        height: 400px;
+        border-radius: 25px !important;
+        animation: skeleton-loading 1s linear infinite alternate;
+        -webkit-animation: skeleton-loading 1s linear infinite alternate;
+    }
     .i-ptp{
         display: flex;
         justify-content: space-between;

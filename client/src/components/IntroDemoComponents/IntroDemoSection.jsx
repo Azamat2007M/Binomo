@@ -1,14 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './introdemos.scss'
 import { IoCloseOutline } from "react-icons/io5";
 import { FaArrowRightLong } from "react-icons/fa6";
 import TradingView from '../IntroChartTradingView/TradingView';
 import { Link, useNavigate } from 'react-router-dom';
+import Skeleton from 'react-loading-skeleton';
 
 const IntroDemoSection = () => {
     const [ next, setNext ] = useState(1)
     const navigate = useNavigate();
+    const [loadingChart, setLoadingChart] = useState(true);
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoadingChart(false);
+        }, 4000);
+
+        return () => clearTimeout(timer);
+    }, []);
     return (
         <>
             <div className='i-sec1'>
@@ -49,7 +58,11 @@ const IntroDemoSection = () => {
                     ) : (
                         <div className="i-part2">
                             <div className="i-chart">
-                                <TradingView/>
+                                {loadingChart ? (
+                                    <Skeleton className='skeleton-chart-intro' count={1} />
+                                ) : (
+                                    <TradingView/>
+                                )}
                             </div>
                             <div className="i-portbottom1">
                                 <h1>Try it right now</h1>
