@@ -17,6 +17,7 @@ const Error = () => {
           <button onClick={() => {
             localStorage.removeItem("Access");
             navigate("/login");
+            window.location.reload();
           }}>LOG OUT FROM ACCOUNT</button>
         </div>
       </div>

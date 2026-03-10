@@ -151,7 +151,8 @@ const AdminEdit = () => {
                     <i className="uil uil-signout"></i>
                     <span className="link-name" onClick={() => {
                         localStorage.removeItem("Access");
-                        navigate("/admin-login");
+                        navigate("/login");
+                        window.location.reload();
                       }} >Logout</span>
                 </a></li>
                 <li className="mode">

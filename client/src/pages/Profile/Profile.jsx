@@ -123,7 +123,7 @@ const Profile = () => {
                   className="closebtn"
                   onClick={() => {
                       localStorage.removeItem("Access");
-                      navigate("/")
+                      navigate("/login")
                       window.location.reload()
                     }}    
                 >
