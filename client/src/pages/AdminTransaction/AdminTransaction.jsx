@@ -51,16 +51,16 @@ const AdminAdmins = () => {
         navigate("/");
       }
     }
-  }, [user]);
+  }, [user, navigate]);
 
   const handleModeToggle = () => {
-    bodyRef.current.classList.toggle("dark");
-    if (bodyRef.current.classList.contains("dark")) {
-      localStorage.setItem("mode", "dark");
-    } else {
+    if (checking) {
+      setChecking(false)
       localStorage.setItem("mode", "light");
+    } else {
+      setChecking(true)
+      localStorage.setItem("mode", "dark");
     }
-    document.body.style.background = 'dark'
   };
 
   const handleSidebarToggle = () => {
@@ -72,8 +72,17 @@ const AdminAdmins = () => {
     }
   };
   const filteredTransactions = infoTrans?.filter((el) => {
-    return el.coin.toLowerCase().includes(search.toLowerCase());
+    return el.userId.toLowerCase().includes(search.toLowerCase()) || el.coin.toLowerCase().includes(search.toLowerCase())
   });
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem("mode");    
+    if (savedMode === "dark") {
+        setChecking(true)
+    } else {
+        setChecking(false)
+    }
+  }, []);
 
   if (isLoading) return <div className='main-loading'><img src="/Loading.svg" alt="" /></div>
   if (error) return <Error/> 
@@ -84,7 +93,7 @@ const AdminAdmins = () => {
         <aside ref={sidebarRef} className={checking ? 'aside-def' : ''}>
         <div className="logo-name">
             <div className="logo-image">
-               <img src="https://play-lh.googleusercontent.com/_XUdhIjKwhAv1F7n2SBDvSHcEfT3Rh4wpHquYYMi_uuJu-tn7B4yV7uuh0tdBrP3dC5Y" alt=""/>
+               <img src="/Logo3.png" alt=""/>
             </div>
             <Link to={'/'} className="logo_name"  style={{color: !checking ? 'black' : 'white'}}>Binomo</Link>
         </div>
@@ -122,7 +131,7 @@ const AdminAdmins = () => {
                     <span className="link-name">Dark Mode</span>
                 </a>
                 <div className="mode-toggle" onClick={handleModeToggle}>
-                  <Switch onChange={() => setChecking(prev => !prev)} /> 
+                  <Switch checked={checking} onChange={() => setChecking(prev => !prev)} /> 
                 </div>
             </li>
             </ul>
@@ -146,9 +155,9 @@ const AdminAdmins = () => {
                 <div className="activity-data-second act-tr-scroll">
                     {filteredTransactions.length > 0 ? filteredTransactions?.map((el) => {
                         return(
-                            <div className="adt-line" key={el?.userId}>
+                            <div className="adt-line" key={el?._id}>
                                 <div className="al-line">
-                                    <span>{buser?.find((item) => el?.userId === item?._id)?.name}</span>
+                                    <span>{buser?.find((item) => el?.userId === item?._id)?.name || 'Deleted Binomer'}</span>
                                 </div>
                                 <div className="al-line">
                                     <span>{el?.coin}</span>
@@ -184,7 +193,7 @@ const AdminAdmins = () => {
                     }) : (
                         <div className="no-data">
                             <PiEmptyBold />
-                            <p>No transactions found</p>
+                            <p style={{color: checking ? "white" : "black"}}>No transactions found</p>
                         </div>
                     )}
                 </div>

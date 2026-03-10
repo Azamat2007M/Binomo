@@ -40,7 +40,6 @@ $black-b: #1E1F22;
 }
 
 :root{
-    /* ===== Colors ===== */
     --primary-color: #0E4BF1;
     --panel-color: #FFF;
     --text-color: #000;
@@ -51,8 +50,6 @@ $black-b: #1E1F22;
     --box2-color: #FFE6AC;
     --box3-color: #E7D1FC;
     --title-icon-color: #fff;
-    
-    /* ====== Transition ====== */
     --tran-05: all 0.5s ease;
     --tran-03: all 0.3s ease;
     --tran-03: all 0.2s ease;
@@ -73,7 +70,6 @@ body.dark{
     --box3-color: #3A3B3C;
     --title-icon-color: #CCC;
 }
-/* === Custom Scroll Bar CSS === */
 ::-webkit-scrollbar {
     width: 8px;
 }

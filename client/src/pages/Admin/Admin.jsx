@@ -31,13 +31,6 @@ const Admin = () => {
   });
   const [infoTrans, setInfoTrans] = useState([])
   const [checking, setChecking] = useState(false);
-  const onChange = (checked) => {
-    if (!checked) {
-      setChecking(false)
-    } else {
-      setChecking(true)
-    }
-  };
 
   const getTransaction = async () => {
     await axios
@@ -49,6 +42,16 @@ const Admin = () => {
             alert(err);
         })
   }
+
+  const handleModeToggle = () => {
+    if (checking) {
+      setChecking(false)
+      localStorage.setItem("mode", "light");
+    } else {
+      setChecking(true)
+      localStorage.setItem("mode", "dark");
+    }
+  };
 
   const handleSidebarToggle = () => {
     if (sidebarRef.current) {
@@ -63,6 +66,16 @@ const Admin = () => {
 
   useEffect(() => {
     getTransaction()
+  }, []);
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem("mode");
+    
+    if (savedMode === "dark") {
+        setChecking(true)
+    } else {
+        setChecking(false)
+    }
   }, []);
 
   useEffect(() => {
@@ -84,7 +97,7 @@ const Admin = () => {
         <aside ref={sidebarRef} className={checking ? 'aside-def' : ''}>
         <div className="logo-name">
             <div className="logo-image">
-               <img src="https://play-lh.googleusercontent.com/_XUdhIjKwhAv1F7n2SBDvSHcEfT3Rh4wpHquYYMi_uuJu-tn7B4yV7uuh0tdBrP3dC5Y" alt=""/>
+               <img src="/Logo3.png" alt=""/>
             </div>
             <Link to={'/'} className="logo_name"  style={{color: !checking ? 'black' : 'white'}}>Binomo</Link>
         </div>
@@ -121,8 +134,8 @@ const Admin = () => {
                         <i className="uil uil-moon"></i>
                     <span className="link-name">Dark Mode</span>
                 </a>
-                <div className="mode-toggle">
-                  <Switch onChange={onChange}/> 
+                <div className="mode-toggle" onClick={handleModeToggle}>
+                  <Switch checked={checking} onChange={(checked) => setChecking(checked)}/> 
                 </div>
             </li>
             </ul>
@@ -233,7 +246,7 @@ const Admin = () => {
                 {filteredUsers?.length === 0 && (
                   <div className="no-data" style={{marginTop: "20px"}}>
                     <PiEmptyBold />
-                    <p>No users found</p>
+                    <p style={{color: checking ? "white" : "black"}}>No users found</p>
                   </div>
                 )}
             </div>

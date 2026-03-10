@@ -39,29 +39,30 @@ const AdminAdmins = () => {
     }
   };
 
-  const UpdateProduct = async (user_id) => {
+  const updateUserStatus = async (user_id, useractived) => {
     try {
-      await updateUser({ id: user_id, useractived: false }).unwrap();
-    } catch (err) {
-      alert(err);
-    }
-  }
-  const DeleteUser = async (user_id) => {
-    try {
-      await deleteUser({ id: user_id }).unwrap();
+      await updateUser({ id: user_id, useractived: !useractived }).unwrap();
     } catch (err) {
       alert(err);
     }
   }
 
-  const handleModeToggle = () => {
-    bodyRef.current.classList.toggle("dark");
-    if (bodyRef.current.classList.contains("dark")) {
-      localStorage.setItem("mode", "dark");
-    } else {
-      localStorage.setItem("mode", "light");
+  const removeUser = async (id) => {
+    try {
+      await deleteUser({ id }).unwrap();
+    } catch (error) {
+      console.log(error); 
     }
-    document.body.style.background = 'dark'
+  }
+
+  const handleModeToggle = () => {
+    if (checking) {
+      setChecking(false)
+      localStorage.setItem("mode", "light");
+    } else {
+      setChecking(true)
+      localStorage.setItem("mode", "dark");
+    }
   };
 
   const handleSidebarToggle = () => {
@@ -72,6 +73,15 @@ const AdminAdmins = () => {
       localStorage.setItem("status", "open");
     }
   };
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem("mode");
+    if (savedMode === "dark") {
+        setChecking(true)
+    } else {
+        setChecking(false)
+    }
+  }, []);
 
   useEffect(() => {
     if (user !== null) {
@@ -94,7 +104,7 @@ const AdminAdmins = () => {
         <aside ref={sidebarRef} className={checking ? 'aside-def' : ''}>
         <div className="logo-name">
             <div className="logo-image">
-               <img src="https://play-lh.googleusercontent.com/_XUdhIjKwhAv1F7n2SBDvSHcEfT3Rh4wpHquYYMi_uuJu-tn7B4yV7uuh0tdBrP3dC5Y" alt=""/>
+               <img src="/Logo3.png" alt=""/>
             </div>
             <Link to={'/'} className="logo_name"  style={{color: !checking ? 'black' : 'white'}}>Binomo</Link>
         </div>
@@ -132,7 +142,7 @@ const AdminAdmins = () => {
                     <span className="link-name">Dark Mode</span>
                 </a>
                 <div className="mode-toggle" onClick={handleModeToggle}>
-                  <Switch onChange={onChange} /> 
+                  <Switch checked={checking} onChange={() => setChecking(prev => !prev)} /> 
                 </div>
             </li>
             </ul>
@@ -157,7 +167,7 @@ const AdminAdmins = () => {
                     {adminSearch?.filter((el) => el?.role === 'admin' && el?._id !== decoded?.userId).length === 0 ? (
                         <div className="no-data">
                             <PiEmptyBold />
-                            <p>No admins found</p>
+                            <p style={{color: checking ? "white" : "black"}}>No admins found</p>
                         </div>
                     ) : (
                         adminSearch?.filter((el) => el?.role === 'admin' && el?._id !== decoded?.userId).map((el) => {
@@ -176,9 +186,9 @@ const AdminAdmins = () => {
                                     <span style={{margin: "auto"}}>{el?.useractived ? 'Active' : 'Baned'}</span>
                                 </div>
                                 <div className="al-btn">
-                                  <button className='b-ban' onClick={() => UpdateProduct(el?._id)}>Ban</button>
+                                  <button className='b-ban' onClick={() => updateUserStatus(el?._id, el?.useractived)}>{el?.useractived ? "Ban" : "Unban"}</button>
                                   <button className='b-edit' onClick={() => navigate(`/admin-edit/${el?._id}`)}>Edit</button>
-                                  <button className='b-delete' onClick={() => DeleteUser(el?._id)}>Delete</button>
+                                  <button className='b-delete' onClick={() => removeUser(el?._id)}>Delete</button>
                                 </div>
                             </div>
                         )

@@ -40,7 +40,6 @@ $black-b: #1E1F22;
 }
 
 :root{
-    /* ===== Colors ===== */
     --primary-color: #0E4BF1;
     --panel-color: #FFF;
     --text-color: #000;
@@ -51,8 +50,6 @@ $black-b: #1E1F22;
     --box2-color: #FFE6AC;
     --box3-color: #E7D1FC;
     --title-icon-color: #fff;
-    
-    /* ====== Transition ====== */
     --tran-05: all 0.5s ease;
     --tran-03: all 0.3s ease;
     --tran-03: all 0.2s ease;
@@ -73,7 +70,7 @@ body.dark{
     --box3-color: #3A3B3C;
     --title-icon-color: #CCC;
 }
-/* === Custom Scroll Bar CSS === */
+
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -397,100 +394,6 @@ aside.close ~ .dashboard .top{
     white-space: nowrap;
     color: var(--text-color);
 }
-@media (max-width: 1000px) {
-    aside{
-        width: 73px;
-    }
-    aside.close{
-        width: 250px;
-    }
-    aside .logo_name{
-        opacity: 0;
-        pointer-events: none;
-    }
-    aside.close .logo_name{
-        opacity: 1;
-        pointer-events: auto;
-    }
-    aside li a .link-name{
-        opacity: 0;
-        pointer-events: none;
-    }
-    aside.close li a .link-name{
-        opacity: 1;
-        pointer-events: auto;
-    }
-    aside ~ .dashboard{
-        left: 73px;
-        width: calc(100% - 73px);
-    }
-    aside.close ~ .dashboard{
-        left: 250px;
-        width: calc(100% - 250px);
-    }
-    aside ~ .dashboard .top{
-        left: 73px;
-        width: calc(100% - 73px);
-    }
-    aside.close ~ .dashboard .top{
-        left: 250px;
-        width: calc(100% - 250px);
-    }
-    .activity .activity-data{
-        overflow-X: scroll;
-    }
-}
-@media (max-width: 780px) {
-    .dash-content .boxes .box{
-        width: calc(100% / 2 - 15px);
-        margin-top: 15px;
-    }
-}
-@media (max-width: 560px) {
-    .dash-content .boxes .box{
-        width: 100% ;
-    }
-}
-@media (max-width: 400px) {
-    aside{
-        width: 0px;
-    }
-    aside.close{
-        width: 73px;
-    }
-    aside .logo_name{
-        opacity: 0;
-        pointer-events: none;
-    }
-    aside.close .logo_name{
-        opacity: 0;
-        pointer-events: none;
-    }
-    aside li a .link-name{
-        opacity: 0;
-        pointer-events: none;
-    }
-    aside.close li a .link-name{
-        opacity: 0;
-        pointer-events: none;
-    }
-    aside ~ .dashboard{
-        left: 0;
-        width: 100%;
-    }
-    aside.close ~ .dashboard{
-        left: 73px;
-        width: calc(100% - 73px);
-    }
-    aside ~ .dashboard .top{
-        left: 0;
-        width: 100%;
-    }
-    aside.close ~ .dashboard .top{
-        left: 0;
-        width: 100%;
-    }
-}
 .activity-data-third{
     width: 100%;
     display: flex;
@@ -533,12 +436,6 @@ aside.close ~ .dashboard .top{
         }
     }
 }
-
-$grey-b: #2a2b30;
-$greyb-b: #54565f;
-$greft-b: #868893;
-$orange-b: #ffdd3c;
-$black-b: #1E1F22;
 
 .au-card{
   width: 50%;
@@ -678,4 +575,116 @@ $black-b: #1E1F22;
     height: 30px !important;
     position: absolute;
   }
+}
+
+@media (max-width: 1000px) {
+    aside{
+        width: 73px;
+    }
+    aside.close{
+        width: 250px;
+    }
+    aside .logo_name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    aside.close .logo_name{
+        opacity: 1;
+        pointer-events: auto;
+    }
+    aside li a .link-name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    aside.close li a .link-name{
+        opacity: 1;
+        pointer-events: auto;
+    }
+    aside ~ .dashboard{
+        left: 73px;
+        width: calc(100% - 73px);
+    }
+    aside.close ~ .dashboard{
+        left: 250px;
+        width: calc(100% - 250px);
+    }
+    aside ~ .dashboard .top{
+        left: 73px;
+        width: calc(100% - 73px);
+    }
+    aside.close ~ .dashboard .top{
+        left: 250px;
+        width: calc(100% - 250px);
+    }
+    .activity .activity-data{
+        overflow-X: scroll;
+    }
+}
+@media (max-width: 780px) {
+    .dash-content .boxes .box{
+        width: calc(100% / 2 - 15px);
+        margin-top: 15px;
+    }
+}
+@media (max-width: 560px) {
+    .activity-data-third{
+        width: 100%;
+        .au-card{
+            width: 100% !important;
+            h1{
+                font-size: 2rem;
+            }
+            input{
+                padding: 15px;
+                font-size: 1rem;
+            }
+            .btnlogin{
+                padding: 15px;
+                font-size: 1.2rem;
+            }
+        }
+    }
+    .dash-content .boxes .box{
+        width: 100% ;
+    }
+}
+@media (max-width: 400px) {
+    aside{
+        width: 0px;
+    }
+    aside.close{
+        width: 73px;
+    }
+    aside .logo_name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    aside.close .logo_name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    aside li a .link-name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    aside.close li a .link-name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    aside ~ .dashboard{
+        left: 0;
+        width: 100%;
+    }
+    aside.close ~ .dashboard{
+        left: 73px;
+        width: calc(100% - 73px);
+    }
+    aside ~ .dashboard .top{
+        left: 0;
+        width: 100%;
+    }
+    aside.close ~ .dashboard .top{
+        left: 0;
+        width: 100%;
+    }
 }

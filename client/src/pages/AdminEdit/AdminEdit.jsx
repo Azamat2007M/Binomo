@@ -62,13 +62,13 @@ const AdminEdit = () => {
   }
 
   const handleModeToggle = () => {
-    bodyRef.current.classList.toggle("dark");
-    if (bodyRef.current.classList.contains("dark")) {
-      localStorage.setItem("mode", "dark");
-    } else {
+    if (checking) {
+      setChecking(false)
       localStorage.setItem("mode", "light");
+    } else {
+      setChecking(true)
+      localStorage.setItem("mode", "dark");
     }
-    document.body.style.background = 'dark'
   };
 
   const handleSidebarToggle = () => {
@@ -93,6 +93,15 @@ const AdminEdit = () => {
   }, [buser]);
 
   useEffect(() => {
+    const savedMode = localStorage.getItem("mode");
+    if (savedMode === "dark") {
+        setChecking(true)
+    } else {
+        setChecking(false)
+    }
+  }, []);
+
+  useEffect(() => {
     if (user !== null) {
       if (user?.role === 'admin') {
         navigate(`/admin-edit/${id}`);
@@ -113,7 +122,7 @@ const AdminEdit = () => {
         <aside ref={sidebarRef} className={checking ? 'aside-def' : ''}>
         <div className="logo-name">
             <div className="logo-image">
-               <img src="https://play-lh.googleusercontent.com/_XUdhIjKwhAv1F7n2SBDvSHcEfT3Rh4wpHquYYMi_uuJu-tn7B4yV7uuh0tdBrP3dC5Y" alt=""/>
+               <img src="/Logo3.png" alt=""/>
             </div>
             <Link to={'/'} className="logo_name"  style={{color: !checking ? 'black' : 'white'}}>Binomo</Link>
         </div>
@@ -151,7 +160,7 @@ const AdminEdit = () => {
                     <span className="link-name">Dark Mode</span>
                 </a>
                 <div className="mode-toggle" onClick={handleModeToggle}>
-                  <Switch onChange={onChange} /> 
+                  <Switch checked={checking} onChange={() => setChecking(prev => !prev)} /> 
                 </div>
             </li>
             </ul>

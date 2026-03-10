@@ -55,7 +55,6 @@ $black-b: #1E1F22;
 }
 
 :root{
-    /* ===== Colors ===== */
     --primary-color: #0E4BF1;
     --panel-color: #FFF;
     --text-color: #000;
@@ -66,8 +65,6 @@ $black-b: #1E1F22;
     --box2-color: #FFE6AC;
     --box3-color: #E7D1FC;
     --title-icon-color: #fff;
-    
-    /* ====== Transition ====== */
     --tran-05: all 0.5s ease;
     --tran-03: all 0.3s ease;
     --tran-03: all 0.2s ease;
@@ -410,6 +407,56 @@ aside.close ~ .dashboard .top{
     white-space: nowrap;
     color: var(--text-color);
 }
+.activity-data-second{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    .adt-line{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: red;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: transparent;
+        border: 2px solid var(--box2-color);
+        gap: 20px;
+        span{
+            font-size: 0.8rem;
+        }
+        .al-line{
+            width: 20%;
+            display: flex;
+            justify-content: start;
+        }
+        button{
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .b-ban{
+            background-color: rgb(9, 255, 0);
+            font-weight: 700;
+        }
+        .b-edit{
+            background-color: $orange-b;
+            font-weight: 700;
+        }
+        .b-delete{
+            background-color: red;
+            font-weight: 700;
+        }
+    }
+}
+
+.dark-side{
+    background-color: black !important;
+    color: white !important;
+}
+
 @media (max-width: 1000px) {
     aside{
         width: 73px;
@@ -512,49 +559,5 @@ aside.close ~ .dashboard .top{
     aside.close ~ .dashboard .top{
         left: 0;
         width: 100%;
-    }
-}
-.activity-data-second{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    .adt-line{
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background-color: red;
-        padding: 20px;
-        border-radius: 10px;
-        background-color: transparent;
-        border: 2px solid var(--box2-color);
-        gap: 20px;
-        span{
-            font-size: 0.8rem;
-        }
-        .al-line{
-            width: 20%;
-            display: flex;
-            justify-content: start;
-        }
-        button{
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        .b-ban{
-            background-color: rgb(9, 255, 0);
-            font-weight: 700;
-        }
-        .b-edit{
-            background-color: $orange-b;
-            font-weight: 700;
-        }
-        .b-delete{
-            background-color: red;
-            font-weight: 700;
-        }
     }
 }

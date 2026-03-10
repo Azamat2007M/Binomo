@@ -392,6 +392,77 @@ aside.close ~ .dashboard .top{
     white-space: nowrap;
     color: var(--text-color);
 }
+.activity-data-second{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    .ad-line{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: red;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: transparent;
+        border: 2px solid var(--box2-color);
+        .al-line{
+            width: 20%;
+            display: flex;
+            justify-content: start;
+        }
+        button{
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .b-ban{
+            background-color: rgb(9, 255, 0);
+            font-weight: 700;
+        }
+        .b-edit{
+            background-color: $orange-b;
+            font-weight: 700;
+        }
+        .b-delete{
+            background-color: red;
+            font-weight: 700;
+        }
+    }
+}
+.al-btn{
+    display: flex;
+    gap: 10px;
+}
+@media (max-width: 1450px) {
+    .ad-line{
+        span{
+            font-size: 0.8rem;
+        }
+    }
+}
+@media (max-width: 1300px) {
+    .ad-line{
+        span{
+            font-size: 0.7rem;
+        }
+    }
+}
+@media (max-width: 1200px) {
+    .ad-line{
+        display: flex;
+    }
+    .act-user-scroll{
+        overflow-x: scroll !important;
+        padding-bottom: 20px;
+    }
+    .ad-line{
+        min-width: 1000px !important;
+        max-width: 1000px !important;
+    }
+}
 @media (max-width: 1000px) {
     aside{
         width: 73px;
@@ -484,76 +555,5 @@ aside.close ~ .dashboard .top{
     aside.close ~ .dashboard .top{
         left: 0;
         width: 100%;
-    }
-}
-.activity-data-second{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    .ad-line{
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background-color: red;
-        padding: 20px;
-        border-radius: 10px;
-        background-color: transparent;
-        border: 2px solid var(--box2-color);
-        .al-line{
-            width: 20%;
-            display: flex;
-            justify-content: start;
-        }
-        button{
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        .b-ban{
-            background-color: rgb(9, 255, 0);
-            font-weight: 700;
-        }
-        .b-edit{
-            background-color: $orange-b;
-            font-weight: 700;
-        }
-        .b-delete{
-            background-color: red;
-            font-weight: 700;
-        }
-    }
-}
-.al-btn{
-    display: flex;
-    gap: 10px;
-}
-@media (max-width: 1450px) {
-    .ad-line{
-        span{
-            font-size: 0.8rem;
-        }
-    }
-}
-@media (max-width: 1300px) {
-    .ad-line{
-        span{
-            font-size: 0.7rem;
-        }
-    }
-}
-@media (max-width: 1200px) {
-    .ad-line{
-        display: flex;
-    }
-    .act-user-scroll{
-        overflow-x: scroll !important;
-        padding-bottom: 20px;
-    }
-    .ad-line{
-        min-width: 1000px !important;
-        max-width: 1000px !important;
     }
 }
