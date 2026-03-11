@@ -42,6 +42,11 @@ $black-b: #1E1F22;
       color: white;
       outline: none;
     }
+    input[type="file"]{
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
     .pass{
       width: 100%;
       display: flex;
@@ -193,21 +198,6 @@ $black-b: #1E1F22;
   }
 }
 
-@media all and (max-width: 1250px){
-  .a-img{
-    width: 50px !important;
-    height: 60px !important;
-    position: absolute;
-  }
-  .d-img{
-    width: 50px !important;
-    height: 40px !important;
-    position: absolute;
-  }
-}
-@media all and (max-width: 900px){
-  
-}
 @media all and (max-width: 1300px){
   .register-wrapper{
     padding: 100px 300px !important;
@@ -222,12 +212,59 @@ $black-b: #1E1F22;
     grid-template-columns: repeat(3, 1fr) !important;
   }
 }
+
+@media all and (max-width: 1250px){
+  .a-img{
+    width: 50px !important;
+    height: 60px !important;
+    position: absolute;
+  }
+  .d-img{
+    width: 50px !important;
+    height: 40px !important;
+    position: absolute;
+  }
+}
+
 @media all and (max-width: 1200px){
   .b-card{
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
   }
 }
+
+@media (max-width: 1100px){
+  .register-wrapper{
+    padding: 100px 200px !important;
+  }
+  .image-upload{
+    width: 300px;
+    height: 300px;
+  }
+  .image-preview{
+    img {
+      width: 300px;
+      height: 300px;
+    }
+  }
+  input[type="file"]{
+    position: absolute !important;
+    left: 0;
+    width: 100px !important;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 800px){
+  .register-wrapper{
+    padding: 100px 100px !important;
+  }
+  .rw-card{
+    width: 100% !important;
+  }
+}
+
 @media all and (max-width: 700px){
   .image-upload{
     width: 300px;
@@ -255,6 +292,12 @@ $black-b: #1E1F22;
   }
 }
 
+@media all and (max-width: 600px){
+  .register-wrapper{
+    padding: 50px 30px !important;
+  }
+}
+
 @media all and (max-width: 500px){
   .r-line{
     display: flex;
@@ -265,21 +308,53 @@ $black-b: #1E1F22;
     width: 200px;
     height: 200px;
   }
-}
-@media all and (max-width: 1100px){
-  .register-wrapper{
-    padding: 100px 200px !important;
+  .image-preview{
+    img {
+      width: 200px;
+      height: 200px;
+    }
   }
-  .image-upload{
-    width: 300px;
-    height: 300px;
+  .btnlogin{
+    font-size: 1rem !important;
+    padding: 20px 0 !important;
   }
 }
-@media all and (max-width: 700px){
-  
-}
-@media all and (max-width: 700px){
-  
+
+@media all and (max-width: 460px){
+  .rw-card{
+    padding: 20px !important;
+    form{
+      gap: 20px !important;
+      h1{
+        font-size: 2rem !important;
+      }
+      input{
+        padding: 20px 30px !important;
+        font-size: 0.8rem !important;
+      }
+      .custom-file-input{
+        label{
+          padding: 20px 0 !important;
+          font-size: 0.8rem !important;
+          font-weight: 800;
+        }
+      }
+      .btnpass{
+        width: 30% !important;
+        padding: 30px 0 !important;
+        font-size: 1.5rem !important;
+      }
+      .login-e{
+        b{
+          font-size: 0.8rem !important;
+        }
+      }
+      .btnlogin{
+        font-size: 1rem !important;
+        padding: 15px 0 !important;
+      }
+    }
+  }
 }
 @media all and (max-width: 700px){
   

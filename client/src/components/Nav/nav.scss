@@ -385,9 +385,16 @@ nav{
         display: flex; 
         align-items: center;
     }
+    .h-left{
+        button{
+            margin: 40px 0 !important;
+            padding: 10px !important;
+            font-size: 1rem !important;
+        }
+    }
 }
 @media all and (max-width: 400px){
-    button{
+    .b-telegram, .b-instagram{
         font-size: 1.1rem !important;
         font-weight: 400;
         p{
@@ -398,4 +405,3 @@ nav{
         font-size: 1.7rem !important;
     }
 }
-

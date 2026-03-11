@@ -126,7 +126,20 @@ $black-b: #1E1F22;
   }
   @media all and (max-width: 480px) {
     .u-card{
-      gap: 20px !important;
+      form{
+        width: 100% !important;
+        gap: 25px !important;
+      }
+      h1{
+        font-size: 2rem !important;
+      }
+      input{
+        padding: 20px !important;
+        font-size: 0.8rem !important;
+      }
+      .a-down{
+        margin: 10px 0 !important;
+      }
     }
     .u-wrapper-f{
       img{

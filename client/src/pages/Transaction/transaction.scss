@@ -171,3 +171,32 @@ $orange-accent: #ffdd3c;
     }
   }
 }
+.tr-wapper-all{
+  width: 100%;
+}
+
+@media all and (max-width: 1200px){
+  .tr-wapper-all{
+    overflow-x: scroll !important;
+  }
+  .t-title{
+    max-width: 900px !important;
+    min-width: 900px !important;
+  }
+  section{
+    width: 900px !important;
+    margin: 0px !important;
+  }
+}
+
+@media all and (max-width: 600px){
+  .t-card{
+    width: 90% !important;
+    gap: 30px !important;
+  }
+  .t-liner{
+    b{
+      font-size: 1rem !important;
+    }
+  }
+}

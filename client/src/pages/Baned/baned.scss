@@ -10,7 +10,7 @@ $orange-b: #ffdd3c;
     justify-content: center;
     align-items: center;
 
-    .b-card{
+    .ban-card{
         display: flex;
         justify-content: center;
         align-items: center;
@@ -46,6 +46,24 @@ $orange-b: #ffdd3c;
             a{
                 color: black !important;
             }
+        }
+    }
+}
+
+@media all and (max-width: 500px){
+    .ban-card{
+        h1{
+            font-size: 8rem !important;
+        }
+        b{
+            font-size: 0.9rem !important;
+        }
+        p{
+            width: 250px;
+            font-size: 0.8rem !important;
+        }
+        button{
+            font-size: 0.8rem !important;
         }
     }
 }

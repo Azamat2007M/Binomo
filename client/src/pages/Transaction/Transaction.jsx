@@ -84,7 +84,8 @@ const Transaction = () => {
         <div className="t-wrapper">
             <div className="t-card">
                 <h1 className='t-active'>Transaction</h1>
-                <div className="t-title">
+                <div className="tr-wapper-all">
+                    <div className="t-title">
                     <b>Picture</b>
                     <b>Coin</b>
                     <b>Start Time</b>
@@ -136,6 +137,7 @@ const Transaction = () => {
                         <img src={imgUrl} alt='Empty'/>
                     </div>
                 )}
+                </div>
             </div>
         </div>
         <Footer/>

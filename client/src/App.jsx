@@ -41,7 +41,7 @@
             <Route path='/introductiondemo' element={<IntroDemo />} />
             <Route path='/profile' element={localStorage.getItem("Access") == null ? <Error /> : <Profile />} />
             <Route path='/binomers' element={localStorage.getItem("Access") == null ? <Error /> : <Reyting />} />
-            <Route path='/ban' element={user?.useractived === false ? <Baned /> : <Error />} />
+            <Route path='/ban' element={user?.useractived === false ? <Baned /> : <Baned />} />
             <Route path='/transaction' element={localStorage.getItem("Access") == null ? <Error /> : <Transaction />} />
             <Route path="/coin/:symbol" element={localStorage.getItem("Access") == null ? <Error /> : <Product />} />
             <Route path="/user/:id" element={localStorage.getItem("Access") == null ? <Error /> : <User />} />

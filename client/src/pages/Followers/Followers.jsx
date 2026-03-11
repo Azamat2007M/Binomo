@@ -154,7 +154,7 @@ const Followers = () => {
             )}
         </div>
         ) : (
-          <div className="b-card1">
+          <div className="b-card">
             {(() => {
               const filteredBinomers = binomers
                 .filter(item => item.author_id === decoded?.userId)

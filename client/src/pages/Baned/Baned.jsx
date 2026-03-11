@@ -10,7 +10,7 @@ const Error = () => {
     <>
       <Nav />
       <div className="b-wrapper">
-        <div className="b-card">
+        <div className="ban-card">
           <h1>Oops!</h1>
           <b>403 - SORRY BUT YOUR ACCOUNT IS BLOCKED :(</b>
           <p>The resource is blocked for your account due to violation of our rules. <br /> You better log out of your account and create a new one.</p>

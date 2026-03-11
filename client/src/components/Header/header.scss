@@ -157,7 +157,19 @@ section{
         }
     }
 }
-
+.slick-next{
+    overflow: hidden;
+    position: absolute;
+    right: 0px !important;
+}
+@media all and (max-width: 1100px){
+    .slider{
+        .slider-container{
+            width: 90%;
+            margin: 50px 5%;
+        }
+    }
+}
 
 @media all and (max-width: 1000px){
   .h-right{
@@ -178,4 +190,115 @@ section{
       font-size: 2.5rem;
     }
   }
+  .slider{
+    .slider-container{
+        width: 90%;
+        margin: 50px 5%;
+        h1{
+            font-size: 2rem;
+        }
+        button{
+            padding: 15px 20px;
+            font-size: 1.2rem;
+        }
+        .slider-card1, .slider-card2{
+            height: 300px;
+            padding: 20px 30px;
+        }
+       .s-count{
+        h1{
+          font-size: 2rem;
+        }
+        b{
+          font-size: 1.2rem;
+        } 
+      }
+    }
+  }
+}
+
+@media all and (max-width: 650px){
+    .slider{
+        .sl-content{
+            font-size: 2rem;
+        }
+        .slider-container{
+            width: 90%;
+            margin: 50px 5%;
+            h1{
+                font-size: 1.5rem;
+                margin-top: 20px;
+            }
+            button{
+                margin: 30px 0;
+                padding: 15px 20px;
+                font-size: 1.2rem;
+            }
+            .slider-card1, .slider-card2{
+                height: 250px;
+                padding: 20px 30px;
+            }
+           .s-count{
+            h1{
+              font-size: 2rem;
+            }
+            b{
+              font-size: 1.2rem;
+            } 
+          }
+        }
+    }
+}
+
+@media all and (max-width: 500px){
+    .h-title{
+        font-size: 3.5rem !important;
+        margin-bottom: 30px !important;
+    }
+    .slider{
+        .slider-container{
+            width: 90%;
+            margin: 50px 5%;
+            h1{
+                font-size: 1.2rem;
+                margin-top: 20px;
+            }
+            button{
+                margin: 20px 0;
+                padding: 10px 20px;
+                font-size: 0.7rem;
+                font-weight: 800;
+            }
+            .slider-card1, .slider-card2{
+                height: 200px;
+                padding: 20px 30px;
+            }
+           .s-count{
+            h1{
+              font-size: 1.2rem;
+            }
+            b{
+              font-size: 1rem;
+            } 
+          }
+        }
+    }
+    .c-four{
+        gap: 50px;
+        margin-top: 50px;
+        grid-template-columns: repeat(1, 1fr) !important;
+    }
+}
+
+@media all and (max-width: 400px){
+    .slider{ 
+        display: none !important;
+    } 
+    .h-left{
+        width: 100% !important;
+        h1{
+            width: 100% !important;
+            font-size: 3rem !important;
+        }
+    }
 }

@@ -117,3 +117,40 @@ $orange-b: #ffdd3c;
         }
     }
 }
+
+@media all and (max-width: 800px){
+    .i-part2{
+        height: 70vh;
+        display: flex;
+        padding: 100px 0;
+        position: relative;
+        img{
+            position: absolute;
+            top: 20%;
+            width: 100% !important;
+        }
+        .info-img{
+            width: 100% !important;
+        }
+        .i-chart{
+            position: absolute !important;
+            top: 0;
+        }
+        .i-portbottom1{
+            position: absolute;
+            top: 80%;
+            transform: translateY(-50%);
+            padding: 0 20px;
+            h1{
+                font-size: 1.5rem;
+            }
+             b{
+                font-size: 1rem;
+             }
+             button{
+                padding: 10px 15px;
+                font-size: 1rem;
+             }
+        }
+    }
+}

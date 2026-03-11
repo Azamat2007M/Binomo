@@ -16,7 +16,7 @@ const Header = () => {
             <div className="case">
                 <div className="banner">
                     <div className="h-left">
-                        <h1>Smart investments</h1>
+                        <h1 className="h-title">Smart investments</h1>
                         <b>Sign up and get $10,000 in a demo account. <br /> Improve your trading skills and open the broad spectrum of financial opportunities with Binomo.</b>
                         {localStorage.getItem('Access') ? (
                             <Link to={'/introductiondemo'}>
@@ -52,7 +52,7 @@ const Header = () => {
         <section>
             <div className="case">
                 <div className="slider">
-                    <h1>Binomo Specials</h1>
+                    <h1 className="sl-content">Binomo Specials</h1>
                     <Slider {...settings}>
                         <div className="slider-container">
                             <div className='slider-card1'>

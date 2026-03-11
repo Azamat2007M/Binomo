@@ -164,3 +164,64 @@ $black-b: #1E1F22;
     position: absolute;
   }
 }
+@media all and (max-width: 500px){
+  .lw-card{
+    width: 90% !important;
+    padding: 20px !important;
+    input{
+      padding: 20px 30px !important;
+    }
+     .btnlogin{
+      padding: 15px 30px !important;
+    }
+    .pass{
+      
+      .btnpass{
+        width: 30% !important;
+      }
+    }
+  }
+}
+
+@media all and (max-width: 450px){
+  .lw-card{
+    h1{
+      font-size: 2rem !important;
+    }
+    input{
+      padding: 20px 30px !important;
+      font-size: 1rem !important;
+    }
+    .btnlogin{
+      padding: 15px 30px !important;
+      font-size: 1rem !important;
+    }
+    .btnpass{
+      width: 50px !important;
+      padding: 30px 0 !important;
+    }
+  }
+}
+
+@media all and (max-width: 400px){
+  .lw-card{
+    input{
+      padding: 15px 20px !important;
+      font-size: 0.8rem !important;
+    }
+    .btnlogin{
+      padding: 10px 20px !important;
+      font-size: 1rem !important;
+      margin-top: 0 !important;
+    }
+    .btnpass{
+      width: 10px !important;
+      padding: 25px 0 !important;
+      .a-img, .d-img{
+        width: 30px !important;
+        height: 40px !important;
+        position: absolute;
+      }
+    }
+  }
+}
