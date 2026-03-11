@@ -29,7 +29,6 @@ const Transaction = () => {
         try {
             const res = await axios.get('http://localhost:1000/transactions');
             setInfoTrans(res.data);
-            console.log(infoTrans);
             
             res.data.forEach((transaction) => {
                 if (transaction.status === "open" && new Date(transaction.endTime) > new Date()) {
